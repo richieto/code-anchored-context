@@ -45,6 +45,14 @@ It is opinionated on purpose: prefer repository-local context, explicit
 lifetimes, and navigable structure over scattered notes that only make sense to
 the people who were in the room.
 
+One practical benefit is that the reasoning travels with the work.
+
+When context is materialized in the repository, it stops being tied to one
+chat transcript, IDE, agent, or session. A team can switch tools without
+losing the trail of why the system is shaped the way it is. The next human or
+agent can open the repo, read the development context, and continue from the
+same accumulated understanding instead of reconstructing it from memory.
+
 ```mermaid
 flowchart LR
   Code["Codebase<br/>What exists in the system"]
@@ -443,6 +451,8 @@ It helps agents and humans answer:
 - What operational risks need support or rollback context?
 - What should become product documentation later?
 - What should not be changed by accident?
+- What reasoning needs to survive a change of IDE, agent, or session?
+- What context should travel with the repository instead of a private chat?
 
 The mental model is simple:
 
