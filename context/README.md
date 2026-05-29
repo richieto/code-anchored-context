@@ -6,7 +6,7 @@ repository.
 Use it for specs, interface notes, architecture notes, testing notes, delivery
 notes, infrastructure notes, actionable operations notes, ADRs, backlog items,
 implementation plans, and release-documentation notes. Do not use
-`docs/` for in-progress development planning.
+`product-docs/` for in-progress development planning.
 
 ## Start Here
 
@@ -20,14 +20,14 @@ implementation plans, and release-documentation notes. Do not use
   shape for scoped program work outside the current release.
 - `_templates/release-context/` contains the standard release folder shell.
 
-## Relationship To docs/
+## Relationship To product-docs/
 
-`context/` and `docs/` serve different jobs:
+`context/` and `product-docs/` serve different jobs:
 
 | Folder | Meaning | Updated when |
 | --- | --- | --- |
 | `context/` | What we are planning, building, deciding, or validating. | During normal development. |
-| `docs/` | What the product does as of a release or tag. | Only during explicit documentation refresh work. |
+| `product-docs/` | What the product does as of a release or tag. | Only during explicit documentation refresh work. |
 
 Working context can feed release documentation, but it is not product
 documentation. Capture that bridge in each initiative's
@@ -247,7 +247,7 @@ When changing behavior, agents should:
 7. Create or update a program planned initiative when future scoped work is
    clear but belongs outside the current release.
 8. Record future product-doc impact in `release-doc-notes.md`, not in
-   `docs/`, unless a human explicitly asks for documentation refresh.
+   `product-docs/`, unless a human explicitly asks for documentation refresh.
 
 The key rule for planning is:
 

@@ -13,13 +13,13 @@ That context usually exists — in chats, tickets, pull request comments,
 planning notes, and people's heads — but agents need it in a structured,
 discoverable form.
 
-## Docs vs Working Context
+## Product Docs vs Working Context
 
 This is why I separate **released product documentation** from **working
 context**:
 
 ```text
-docs/   What shipped.
+product-docs/   What shipped.
 context/      What we are planning, building, deciding, testing,
                   shipping, hosting, deferring, and learning.
 ```
@@ -53,13 +53,13 @@ instead of reconstructing it from memory.
 flowchart LR
   Code["Codebase<br/>What exists"]
   Dev["context/<br/>What is being planned, built, decided, tested, shipped, deferred"]
-  Docs["docs/<br/>What shipped in a known release"]
+  ProductDocs["product-docs/<br/>What shipped in a known release"]
   Agents["Agents and humans"]
 
   Agents --> Code
   Agents --> Dev
-  Dev -->|"release-doc-notes.md captures future docs impact"| Docs
-  Docs -->|"stable release truth"| Agents
+  Dev -->|"release-doc-notes.md captures future product docs impact"| ProductDocs
+  ProductDocs -->|"stable release truth"| Agents
 ```
 
 ## Why It Matters

@@ -1,10 +1,10 @@
 # Release Doc Notes
 
 Use this file to capture product-documentation impact while development is
-in progress. At release time, these notes help refresh `docs/`
+in progress. At release time, these notes help refresh `product-docs/`
 against the final shipped behavior.
 
-Do not edit `docs/` from normal development work unless a human
+Do not edit `product-docs/` from normal development work unless a human
 explicitly asks for a documentation refresh or a specific documentation fix.
 
 ## Product Behavior Changes
@@ -12,14 +12,17 @@ explicitly asks for a documentation refresh or a specific documentation fix.
 - The template can now be adopted through `npx code-anchored-context init`
   instead of manual copying.
 - The installed folder names are now `context/` for working context and
-  `docs/` for release-anchored product docs.
-- `--no-docs`, `--dry-run`, `--force`, `--target`,
+  `product-docs/` for release-anchored product docs.
+- `--no-product-docs`, `--dry-run`, `--force`, `--target`,
   `--project-name`, and `--release` control installation behavior.
+  `--no-docs` remains as a compatibility alias for `--no-product-docs`.
 - Existing `AGENTS.md` files are preserved and receive a bounded
   Code-Anchored Context section. Common case variants such as `Agents.md` are
   reused rather than duplicated.
-- Existing generated path variants are handled conservatively: `docs`
-  variants are skipped unless replaced with `--force`, and
+- Existing `docs/` folders are preserved because the installed product
+  documentation scaffold now lives under `product-docs/`.
+- Existing generated path variants are handled conservatively:
+  `product-docs` variants are skipped unless replaced with `--force`, and
   `.agents/skills/README.md` variants are reused for the skill index.
 - Companion article and presentation drafts are kept under `writing/` in this
   repository and are not installed into consumer projects.
@@ -27,10 +30,11 @@ explicitly asks for a documentation refresh or a specific documentation fix.
   outward: product-readable first, technically anchored where details affect
   shipped behavior, operations, support, or auditability.
 
-## Candidate Docs Areas
+## Candidate Product Docs Areas
 
 - Root `README.md` adoption and publishing sections.
-- `docs/_authoring/workflow.md` writing focus and documentation
+- `product-docs/README.md` root orientation.
+- `product-docs/_authoring/workflow.md` writing focus and documentation
   modes.
 - Future release documentation only if this template repo begins documenting
   its own shipped CLI as product behavior.
@@ -38,7 +42,8 @@ explicitly asks for a documentation refresh or a specific documentation fix.
 ## QA Or Support Notes
 
 - Ask users to run `--dry-run` first when adopting into a mature repo with an
-  existing `AGENTS.md`, `.agents/`, `context/`, or `docs/`.
+  existing `AGENTS.md`, `.agents/`, `context/`, or `product-docs/`.
+- Existing `docs/` folders are intentionally left alone.
 
 ## Exclusions
 

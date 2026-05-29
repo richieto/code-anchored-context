@@ -1,6 +1,6 @@
 ---
 name: code-anchored-context
-description: Use central repository context for planning and implementation. Use when starting, changing, reviewing, or documenting behavior-changing work; when checking or updating context/current.md, context/releases/*/initiatives/*, context/programs/*, context/programs/*/planned-initiatives/*, context/backlog/items/*, specs, plans, interface notes, architecture notes, testing notes, delivery notes, infrastructure notes, actionable operations notes, ADRs, backlog, release-doc-notes.md; when promoting planned initiatives during release transitions; or when deciding whether docs/ should be left untouched.
+description: Use central repository context for planning and implementation. Use when starting, changing, reviewing, or documenting behavior-changing work; when checking or updating context/current.md, context/releases/*/initiatives/*, context/programs/*, context/programs/*/planned-initiatives/*, context/backlog/items/*, specs, plans, interface notes, architecture notes, testing notes, delivery notes, infrastructure notes, actionable operations notes, ADRs, backlog, release-doc-notes.md; when promoting planned initiatives during release transitions; or when deciding whether product-docs/ should be left untouched.
 ---
 
 # Code-Anchored Context
@@ -175,13 +175,13 @@ settled truth lives. Promote stable conclusions into `spec.md`,
 `infrastructure.md`, `operations.md` when actionable, `backlog.md`, ADRs, or
 `release-doc-notes.md` as appropriate.
 
-### 9) Preserve The Docs Boundary
+### 9) Preserve The Product Docs Boundary
 
-Do not edit `docs/` as part of normal feature work, bug fixes,
+Do not edit `product-docs/` as part of normal feature work, bug fixes,
 refactors, or planning. Instead, update the initiative's
 `release-doc-notes.md`.
 
-Only update `docs/` when a human explicitly asks for release
+Only update `product-docs/` when a human explicitly asks for release
 documentation work, a specific page update, or a demonstrable documentation
 fix.
 
@@ -206,4 +206,4 @@ Before finishing behavior-changing work:
   infrastructure, actionable operations, or backlog state was reflected in the
   initiative when appropriate.
 - Future product-documentation impact was captured in `release-doc-notes.md`.
-- `docs/` was left untouched unless explicitly requested.
+- `product-docs/` was left untouched unless explicitly requested.

@@ -5,10 +5,10 @@ This folder contains one authoring guide per documented area.
 Create a guide from `_template.md` when adding a documentation area:
 
 ```text
-docs/_authoring/areas/<area-slug>.md
+product-docs/_authoring/areas/<area-slug>.md
 ```
 
-Each guide should help a human or agent refresh docs from a release diff
+Each guide should help a human or agent refresh product docs from a release diff
 without rediscovering the area's structure from scratch.
 
 ## Current Area Guides

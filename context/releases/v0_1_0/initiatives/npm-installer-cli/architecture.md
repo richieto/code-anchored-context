@@ -4,7 +4,7 @@
 
 This repository is already the canonical template. Its root files are the
 files future projects need: `AGENTS.md`, `.agents/skills/`, `context/`,
-and optionally `docs/`.
+and optionally `product-docs/`.
 
 ## Components
 

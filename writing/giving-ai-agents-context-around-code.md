@@ -19,7 +19,7 @@ This is why I started separating **released product documentation** from
 **working context**.
 
 ```text
-docs/
+product-docs/
   What shipped.
 
 context/
@@ -62,13 +62,13 @@ models and team members materially better.
 flowchart LR
   Code["Codebase<br/>What exists in the system"]
   Dev["context/<br/>What is being planned, built, decided, tested, shipped, hosted, deferred, and learned"]
-  Docs["docs/<br/>What shipped in a known release"]
+  ProductDocs["product-docs/<br/>What shipped in a known release"]
   Agents["Agents and humans<br/>Need context before changing behavior"]
 
   Agents --> Code
   Agents --> Dev
-  Dev -->|"release-doc-notes.md captures future docs impact"| Docs
-  Docs -->|"stable release truth"| Agents
+  Dev -->|"release-doc-notes.md captures future product docs impact"| ProductDocs
+  ProductDocs -->|"stable release truth"| Agents
 ```
 
 ## The Navigation Problem
@@ -462,7 +462,7 @@ It helps agents and humans answer:
 The mental model is simple:
 
 ```text
-docs/
+product-docs/
   Released truth.
 
 context/releases/

@@ -1,14 +1,14 @@
-# Docs Authoring Guide
+# Product Docs Authoring Guide
 
 This subtree owns all guidance for authoring and refreshing the documentation
-under `docs/`. Humans and agents both read from here to know how
+under `product-docs/`. Humans and agents both read from here to know how
 documentation is structured, when it is refreshed, what belongs in each area,
 and which domain terminology to use.
 
 ## Start Here
 
-- [`workflow.md`](workflow.md) explains how docs are versioned, refreshed, and
-  structured.
+- [`workflow.md`](workflow.md) explains how product docs are versioned,
+  refreshed, and structured.
 - [`terminology.md`](terminology.md) holds project-specific domain language.
 - [`areas/`](areas/) contains one file per documented area, covering feature
   inventory, code orientation, conventions, and what matters at release time.
@@ -18,14 +18,14 @@ and which domain terminology to use.
 Create one authoring guide per documented area:
 
 ```text
-docs/_authoring/areas/<area-slug>.md
+product-docs/_authoring/areas/<area-slug>.md
 ```
 
 Each area guide should identify:
 
 - the source locations that own the behavior, such as product code,
   interfaces, tests, CI/CD, generated artifacts, infrastructure, or config
-- the docs root under `docs/`
+- the product docs root under `product-docs/`
 - feature pages that should exist
 - behavior that matters at release time
 - changes to ignore, such as pure refactors or test-only edits

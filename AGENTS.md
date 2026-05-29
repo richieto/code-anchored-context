@@ -14,18 +14,19 @@ For behavior-changing work, use the repo-wide skill at
 Keep initiative knowledge centralized under `context/`; area
 `AGENTS.md` files should point there rather than copying active plans.
 
-## Docs Authoring
+## Product Docs Authoring
 
-### When To Edit `docs/`
+### When To Edit `product-docs/`
 
-Do not edit `docs/` as a side effect of feature work, bug fixes,
-refactors, or other code changes. Docs in this model are release-anchored:
+Do not edit `product-docs/` as a side effect of feature work, bug fixes,
+refactors, or other code changes. Product docs in this model are
+release-anchored:
 they describe the behavior of a specific release tag, not the partial state of
 a working branch.
 
-Touch `docs/` only when:
+Touch `product-docs/` only when:
 
-- A human explicitly asks you to refresh the docs for a release, typically
+- A human explicitly asks you to refresh product docs for a release, typically
   after a release tag is cut and QA has signed off.
 - A human explicitly asks you to create or refresh baseline documentation for
   an existing project.
@@ -37,16 +38,16 @@ If you are unsure whether the request is one of these, ask before editing.
 
 If a project has documentation that intentionally follows a different cadence,
 document that exception in the area's README and in
-`docs/_authoring/areas/`.
+`product-docs/_authoring/areas/`.
 
 ### Where The Authoring Guidance Lives
 
 All documentation workflow, per-area authoring guides, and domain terminology
-live under [`docs/_authoring/`](docs/_authoring/). Start
-with [`docs/_authoring/README.md`](docs/_authoring/README.md).
+live under [`product-docs/_authoring/`](product-docs/_authoring/). Start
+with [`product-docs/_authoring/README.md`](product-docs/_authoring/README.md).
 
-If you are refreshing docs, the per-area guides in
-[`docs/_authoring/areas/`](docs/_authoring/areas/) tell you
+If you are refreshing product docs, the per-area guides in
+[`product-docs/_authoring/areas/`](product-docs/_authoring/areas/) tell you
 what matters and what to ignore for each area.
 
 `AGENTS.md` files stay lean. They are for coding conventions and agent

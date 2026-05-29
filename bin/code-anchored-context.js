@@ -54,7 +54,7 @@ async function main() {
     dryRun: args.dryRun
   });
 
-  await installer.init({ includeDocs: args.docs });
+  await installer.init({ includeProductDocs: args.productDocs });
 }
 
 function parseArgs(argv) {
@@ -65,7 +65,7 @@ function parseArgs(argv) {
     release: defaultRelease,
     force: false,
     dryRun: false,
-    docs: true,
+    productDocs: true,
     help: false,
     version: false
   };
@@ -95,8 +95,8 @@ function parseArgs(argv) {
       continue;
     }
 
-    if (arg === '--no-docs') {
-      options.docs = false;
+    if (arg === '--no-product-docs' || arg === '--no-docs') {
+      options.productDocs = false;
       continue;
     }
 
@@ -170,7 +170,8 @@ Options:
   --target <path>          Project root to install into. Defaults to cwd.
   --project-name <name>   Name used to replace PROJECT_NAME placeholders.
   --release <slug>        Initial release slug. Defaults to ${defaultRelease}.
-  --no-docs               Skip the docs/ starter files.
+  --no-product-docs       Skip the product-docs/ starter files.
+  --no-docs               Alias for --no-product-docs.
   --force                 Replace existing generated directories.
   --dry-run               Show planned changes without writing files.
   -h, --help              Show help.
@@ -178,7 +179,7 @@ Options:
 
 Examples:
   npx code-anchored-context init --project-name "My App"
-  npx code-anchored-context init --release v1_0_0 --no-docs
+  npx code-anchored-context init --release v1_0_0 --no-product-docs
 `);
 }
 
@@ -215,7 +216,7 @@ class Installer {
     this.agentsFilePath = path.join(targetRoot, 'AGENTS.md');
   }
 
-  async init({ includeDocs }) {
+  async init({ includeProductDocs }) {
     await this.ensureDirectory(this.targetRoot);
 
     await this.installAgentsFile();
@@ -223,10 +224,10 @@ class Installer {
     await this.copyTemplatePath('context', 'context');
     await this.renameReleasePaths();
 
-    if (includeDocs) {
-      await this.copyTemplatePath('docs', 'docs');
+    if (includeProductDocs) {
+      await this.copyTemplatePath('product-docs', 'product-docs');
     } else {
-      this.note('skip docs/ (--no-docs)');
+      this.note('skip product-docs/ (--no-product-docs)');
     }
 
     this.printSummary();

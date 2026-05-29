@@ -10,7 +10,7 @@ Program: None
 Make this repository installable through a small npm CLI so a human can add
 the Code-Anchored Context structure to an existing project with one command.
 The initializer should copy the agent guidance, repo-wide skill, working
-context, and optional `docs/` starter files into the target repo.
+context, and optional `product-docs/` starter files into the target repo.
 
 ## Touched Areas
 
@@ -18,10 +18,10 @@ context, and optional `docs/` starter files into the target repo.
 - `bin/code-anchored-context.js`
 - `tests/cli-smoke.test.js`
 - `README.md`
-- `docs/_authoring/workflow.md`
-- `docs/_authoring/areas/_template.md`
-- `docs/_templates/area/README.md`
-- `docs/_templates/area/features/feature-template.md`
+- `product-docs/_authoring/workflow.md`
+- `product-docs/_authoring/areas/_template.md`
+- `product-docs/_templates/area/README.md`
+- `product-docs/_templates/area/features/feature-template.md`
 - `writing/README.md`
 - `context/current.md`
 - `context/releases/v0_1_0/backlog.md`
@@ -53,12 +53,17 @@ Infrastructure and operations notes are not applicable for this initiative.
 - CLI package metadata added.
 - Installer command added.
 - Smoke tests added.
-- Template folders renamed to `context/` and `docs/`.
+- Template folders renamed to `context/` and `product-docs/`.
+- Existing consumer `docs/` folders are now preserved because the product docs
+  scaffold installs under `product-docs/`.
+- Azure wiki-specific starter files `.order` and `Welcome.md` were replaced
+  with a portable `product-docs/README.md`.
 - Companion article and presentation drafts moved under `writing/` and
   excluded from the npm package.
-- Package version bumped to `0.2.1` because `0.2.0` is already published.
+- Package version bumped to `0.2.2` because `0.2.1` was published before the
+  `product-docs/` collision fix.
 - README adoption and publishing flow updated.
-- Docs authoring guidance now defaults to product-readable,
+- Product docs authoring guidance now defaults to product-readable,
   technically anchored prose.
 - `npm test`, `npm pack --dry-run`, dry-run install, and force install checks
   pass locally.
@@ -70,5 +75,5 @@ Infrastructure and operations notes are not applicable for this initiative.
   Promote settled conclusions into the stable initiative files.
 - Update `release-doc-notes.md` when shipped behavior or product-facing
   behavior changes.
-- Do not update `docs/` from this initiative unless a human
+- Do not update `product-docs/` from this initiative unless a human
   explicitly asks for release documentation work.
