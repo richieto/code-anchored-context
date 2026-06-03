@@ -11,3 +11,6 @@ project.
 - `code-anchored-context` - use central `context/` initiatives
   for planning, implementation context, programs, planned initiatives, ADRs,
   backlog, and release-documentation notes.
+- `release-context-closeout` - close out a completed release, advance
+  `context/current.md`, carry unfinished work forward, and integrate shipped
+  knowledge into `reference/`.

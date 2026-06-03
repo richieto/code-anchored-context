@@ -20,6 +20,7 @@ context, and optional `reference/` starter files into the target repo.
 - `README.md`
 - `AGENTS.md`
 - `.agents/skills/code-anchored-context/SKILL.md`
+- `.agents/skills/release-context-closeout/SKILL.md`
 - `context/project-profile.md`
 - `context/README.md`
 - `context/terminology.md`
@@ -69,11 +70,15 @@ Infrastructure and operations notes are not applicable for this initiative.
   excluded from the npm package.
 - Package version bumped to `0.2.3` for the `reference/` rename.
 - Package version bumped to `0.2.4` for the repo-wide project profile.
+- Package version bumped to `0.2.5` for the release context closeout skill.
 - `context/project-profile.md` added as an optional source-backed baseline
   for stack, commands, verification, delivery, infrastructure, observability,
   and generated-artifact facts.
 - Agent guidance now tells consumers to keep repo-specific toolchain facts in
   `context/project-profile.md`, not in the reusable skill.
+- `release-context-closeout` added as the packaged post-release lifecycle
+  skill for closing a merged release, advancing context, carrying work
+  forward, and integrating shipped knowledge into `reference/`.
 - README adoption and publishing flow updated.
 - Reference authoring guidance now defaults to product-readable,
   technically anchored prose.

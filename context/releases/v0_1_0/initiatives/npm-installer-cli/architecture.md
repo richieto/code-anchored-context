@@ -14,8 +14,8 @@ generic.
 | Component | Responsibility |
 | --- | --- |
 | `package.json` | Defines package metadata, published files, and the CLI binary. |
-| `bin/code-anchored-context.js` | Parses flags, copies template paths, applies placeholder replacements, and prints the install summary. |
-| Template root files | Provide the actual context files copied into target repositories, including the optional project profile starter. |
+| `bin/code-anchored-context.js` | Parses flags, copies template paths, installs packaged skills, applies placeholder replacements, and prints the install summary. |
+| Template root files | Provide the actual agent guidance, skills, and context files copied into target repositories, including the optional project profile starter. |
 
 ## Flow
 

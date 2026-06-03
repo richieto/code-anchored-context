@@ -18,8 +18,8 @@ notes.
 ## What This Template Contains
 
 - `AGENTS.md` with repo-wide agent guidance.
-- `.agents/skills/code-anchored-context/SKILL.md` for the recurring
-  working-context workflow.
+- `.agents/skills/` with skills for the recurring working-context workflow
+  and post-release context closeout.
 - `context/` with terminology, release context, backlog/program structure,
   a repo-wide project profile starter, initiative templates, and
   release-documentation notes.
@@ -45,9 +45,15 @@ npx code-anchored-context init --target ../existing-project
 ```
 
 The initializer copies the repo-local agent context into the target project,
-adds or updates guidance in `AGENTS.md`, installs the
-`code-anchored-context` skill under `.agents/skills/`, and replaces
+adds or updates guidance in `AGENTS.md`, installs repository skills under
+`.agents/skills/`, and replaces
 basic placeholders such as `PROJECT_NAME` and the initial release slug.
+
+Installed skills:
+
+- `code-anchored-context` for behavior-changing work during development.
+- `release-context-closeout` for post-release cleanup after a release branch
+  has merged or a release is accepted.
 
 Manual adoption still works:
 

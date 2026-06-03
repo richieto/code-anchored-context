@@ -146,6 +146,9 @@ Mark it as promoted and link to the new release initiative.
 When asked to set a new current release, treat it as a release transition,
 not just a `current.md` edit.
 
+For full post-release cleanup after a release branch has merged or a release
+has been accepted, use the `release-context-closeout` skill instead.
+
 Use `context/_templates/release-transition.md` as the checklist:
 
 1. Update `context/current.md`.

@@ -50,6 +50,8 @@ Version `0.2.3` is the package shape that uses `reference/` for
 release-anchored accepted behavior.
 Version `0.2.4` adds `context/project-profile.md` as the repo-wide operating
 profile starter.
+Version `0.2.5` adds the `release-context-closeout` skill and updates the
+initializer to install all packaged repository skills.
 
 ## Rollout Notes
 

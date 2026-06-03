@@ -17,6 +17,10 @@ For behavior-changing work, use the repo-wide skill at
 Keep initiative knowledge centralized under `context/`; area
 `AGENTS.md` files should point there rather than copying active plans.
 
+For post-release cleanup after a release branch has merged or a release is
+accepted, use the repo-wide skill at
+[`.agents/skills/release-context-closeout/SKILL.md`](.agents/skills/release-context-closeout/SKILL.md).
+
 ## Reference Authoring
 
 ### When To Edit `reference/`

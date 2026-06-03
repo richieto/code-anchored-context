@@ -19,6 +19,16 @@ const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '
 const defaultRelease = 'v0_1_0';
 const defaultReleaseLabel = 'v0.1.0';
 const skillName = 'code-anchored-context';
+const repositorySkills = [
+  {
+    name: 'code-anchored-context',
+    readmeEntry: '- `code-anchored-context` - use central `context/` initiatives for planning, implementation context, programs, planned initiatives, ADRs, backlog, and release-documentation notes.'
+  },
+  {
+    name: 'release-context-closeout',
+    readmeEntry: '- `release-context-closeout` - close out a completed release, advance `context/current.md`, carry unfinished work forward, and integrate shipped knowledge into `reference/`.'
+  }
+];
 const agentSectionStart = '<!-- code-anchored-context:start -->';
 const agentSectionEnd = '<!-- code-anchored-context:end -->';
 
@@ -261,8 +271,12 @@ class Installer {
       return;
     }
 
-    if (current.includes(`.agents/skills/${skillName}/SKILL.md`)) {
-      this.note(`${targetDisplay} already points to the Code-Anchored Context skill`);
+    const existingSkillPaths = repositorySkills.filter((skill) =>
+      current.includes(`.agents/skills/${skill.name}/SKILL.md`)
+    );
+
+    if (existingSkillPaths.length === repositorySkills.length) {
+      this.note(`${targetDisplay} already points to the Code-Anchored Context skills`);
       return;
     }
 
@@ -312,14 +326,20 @@ For behavior-changing work, use the repo-wide skill at
 [\`.agents/skills/${skillName}/SKILL.md\`](.agents/skills/${skillName}/SKILL.md).
 Keep initiative knowledge centralized under \`context/\`; area
 \`AGENTS.md\` files should point there rather than copying active plans.
+
+For post-release cleanup after a release branch has merged or a release is
+accepted, use the repo-wide skill at
+[\`.agents/skills/release-context-closeout/SKILL.md\`](.agents/skills/release-context-closeout/SKILL.md).
 ${agentSectionEnd}`;
   }
 
   async installSkill() {
-    await this.copyTemplatePath(
-      `.agents/skills/${skillName}`,
-      `.agents/skills/${skillName}`
-    );
+    for (const skill of repositorySkills) {
+      await this.copyTemplatePath(
+        `.agents/skills/${skill.name}`,
+        `.agents/skills/${skill.name}`
+      );
+    }
 
     const readmeTarget = await this.findExistingTargetPath('.agents/skills/README.md');
     const readmePath = readmeTarget.exists
@@ -336,23 +356,25 @@ ${agentSectionEnd}`;
 
     const current = await readFile(readmePath, 'utf8');
 
-    if (current.includes(skillName)) {
-      this.note(`${readmeDisplay} already lists the Code-Anchored Context skill`);
+    const missingSkills = repositorySkills.filter((skill) => !current.includes(skill.name));
+
+    if (missingSkills.length === 0) {
+      this.note(`${readmeDisplay} already lists the Code-Anchored Context skills`);
       return;
     }
 
     const entry = [
       '',
-      '## Code-Anchored Context',
+      '## Code-Anchored Context Skills',
       '',
-      `- \`${skillName}\` - use central \`context/\` initiatives for planning, implementation context, programs, planned initiatives, ADRs, backlog, and release-documentation notes.`,
+      ...missingSkills.map((skill) => skill.readmeEntry),
       ''
     ].join('\n');
 
     await this.writeFile(
       readmePath,
       `${current.trimEnd()}\n${entry}`,
-      `append Code-Anchored Context skill to ${readmeDisplay}`
+      `append Code-Anchored Context skills to ${readmeDisplay}`
     );
   }
 

@@ -34,6 +34,7 @@ The normal flow is:
 3. The command installs:
    - `AGENTS.md`
    - `.agents/skills/code-anchored-context/SKILL.md`
+   - `.agents/skills/release-context-closeout/SKILL.md`
    - `context/`, including `context/project-profile.md`
    - `reference/` unless `--no-reference` is supplied
 4. If `AGENTS.md` already exists, the command appends or refreshes a
@@ -54,6 +55,8 @@ hyphens because it becomes part of generated file paths.
       Working context files.
 - [x] Installing into an empty target creates
       `context/project-profile.md` with project placeholders replaced.
+- [x] Installing into an empty target creates both packaged skills:
+      `code-anchored-context` and `release-context-closeout`.
 - [x] Installing with `--no-reference` skips `reference/`.
 - [x] Existing `docs/` folders are preserved and do not block
       `reference/` installation.

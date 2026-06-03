@@ -36,6 +36,8 @@ Use this checklist during a baseline pass:
   environments
 - CI/CD workflows, deployment scripts, release toggles, artifact publishing,
   and environment promotion
+- release branch, tag, closeout branch, commit, push, PR, and acceptance
+  conventions
 - infrastructure as code, service configuration, secrets references, and
   environment dependencies
 - observability, logs, metrics, traces, alerts, dashboards, support tools,
@@ -97,6 +99,21 @@ release gates.
 
 Use initiative `delivery.md` files for work-specific pipeline, build,
 deployment, or release changes.
+
+## Release Closeout Profile
+
+- Release base branch: Unknown.
+- Release tag pattern: Unknown.
+- Closeout branch naming: Unknown.
+- Commit policy: Unknown.
+- Push policy: Unknown.
+- PR policy: Unknown.
+- Release acceptance gates: Unknown.
+- Documentation validation commands: Unknown.
+
+Use this section to capture defaults for the `release-context-closeout` skill.
+If these values are unknown, agents should infer from repository evidence when
+safe or ask before changing branches, pushing, or opening PRs.
 
 ## Infrastructure And Configuration
 

@@ -33,12 +33,21 @@ explicitly asks for a reference refresh or a specific reference fix.
   infrastructure, observability, and generated artifacts.
 - Agent guidance now directs repo-specific toolchain facts into
   `context/project-profile.md` rather than the reusable skill.
+- The package now installs a second skill, `release-context-closeout`, for
+  closing a merged or accepted release, advancing the current release,
+  carrying unfinished work forward, and integrating shipped behavior into
+  `reference/`.
+- `context/project-profile.md` now has a release closeout profile section for
+  base branch, tag pattern, branch naming, commit/push/PR policy, acceptance
+  gates, and documentation validation commands.
 
 ## Candidate Reference Areas
 
 - Root `README.md` adoption and publishing sections.
 - `context/project-profile.md` starter guidance.
 - `.agents/skills/code-anchored-context/SKILL.md` project-profile workflow.
+- `.agents/skills/release-context-closeout/SKILL.md` post-release closeout
+  workflow.
 - `reference/README.md` root orientation.
 - `reference/_authoring/workflow.md` writing focus and reference
   modes.
