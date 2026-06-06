@@ -1,6 +1,6 @@
 {
   "name": "code-anchored-context",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "Install repo-local agent skills, working context, release initiatives, and release-anchored reference scaffolding into an existing project.",
   "license": "MIT",
   "type": "module",
