@@ -26,6 +26,10 @@ List IaC modules, manifests, templates, parameters, or state changes.
 List environment variables, app settings, feature flags, secrets, certificates,
 secret manager references, or secret-rotation needs.
 
+> Reminder: never paste secret values here. Record secret names, env var keys,
+> and vault or secret-manager paths only -- never actual credentials, tokens,
+> certificates, or connection strings. Treat this file as if it were public.
+
 ## Environment Dependencies
 
 Capture dependencies between environments, regions, tenants, subscriptions,

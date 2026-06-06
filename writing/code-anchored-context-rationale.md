@@ -36,15 +36,19 @@ complex ones. I also noticed something concrete: coding agent output improves
 significantly when you give the agent *structure* — different files for
 different concerns. Spec, IaC, CI/CD, architecture, and the list goes on.
 
-Here is the important part. The more "code-first" your repository is, the better
-your results, because the agent gets not just the state of the artifacts you
-produce, but the context *around* them: architecture, delivery, operations, and
-observability. And do not let perfect be the enemy of good — if all you have is
-IaC and the code itself, that is already very helpful. Just plan to grow into
-more over time.
+There is a compounding effect here: the more "code-first" your repository is,
+the better your results, because the agent inherits the context *around* the
+artifacts, not just the artifacts themselves. That argument has its own home in
+the "Where It Shines" section of
+[Code-Anchored Context: Why](code-anchored-context-why.md). And do not let
+perfect be the enemy of good — if all you have is IaC and the code itself, that
+is already very helpful. Just plan to grow into more over time.
 
 If you want to stay lean on a small project, start with something like
-OpenSpec. Once you get complex enough, consider this approach instead.
+OpenSpec. Once you get complex enough, consider this approach instead. And even
+then it is opt-in: it earns its keep on large, long-lived initiatives, while
+small fixes still just ship without ceremony. Nobody has to wrap a one-line
+change in process.
 
 > The richer the repository, the more context an agent inherits for free.
 
@@ -62,6 +66,12 @@ the same time. That keeps it accurate, and it comes with everything the repo
 already gives you: it can reference exact files and lines, it gets git tracking
 by default, and you get auditing for free.
 
+There is a second, quieter payoff. The reasoning an agent produces while it
+works is the best architecture decision record you will never otherwise get —
+prose nobody on the team wanted to sit down and write. Captured in the
+repository, it becomes the raw material for keeping released reference accurate
+later, instead of evaporating when the session closes.
+
 > Documentation that ships with the change cannot drift away from it.
 
 ## The Reasoning Is Already In Language
@@ -73,17 +83,19 @@ output documentation and get more value out of the tokens you already paid for.
 
 > The agent already wrote the explanation. Keep it.
 
-## The IDE Is A Human Interface, Not The Agent's
+## Where You Open The Repo Should Not Matter
 
-Something worth remembering: the IDE does not matter to a coding agent while it
-is planning or coding. The IDE is mostly a human interface.
+To be clear, the IDE is not irrelevant to agents — indexing, language servers,
+and tool wiring genuinely help. The narrower point is this: *where in the tree
+you open the repo should not change the outcome.* Root or a nested subfolder,
+the agent should reach the same context and the same answer.
 
 As long as you give your agents the right context, they have no trouble
 navigating the repository tree to the right file and the right lines —
-regardless of whether you have four or five workspaces in it. That is why I keep
-context and reference documentation at the root. When I do need debugging help
-or workspace-specific capabilities, I just open another window dedicated to
-that.
+regardless of whether you have four or five workspaces in it, or which one you
+happened to open. That is why I keep context and reference documentation at the
+root: it is discoverable from anywhere. When I do need debugging help or
+workspace-specific capabilities, I just open another window dedicated to that.
 
 > Optimize the repository for the agent's context, not the editor's layout.
 

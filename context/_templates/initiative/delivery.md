@@ -36,6 +36,9 @@ controls.
 Capture scripts, commands, CLIs, jobs, or approved automation integrations
 that agents or engineers can use to act on delivery.
 
+> Reminder: reference secrets by name. Never embed tokens, credentials, or
+> connection strings in commands or scripts captured here.
+
 ## Rollout Notes
 
 Describe staged rollout, canary behavior, compatibility windows, or release

@@ -17,12 +17,16 @@ The core series is meant to be read (and released) in this order:
 
 1. [The Rationale](code-anchored-context-rationale.md) — the painpoints that
    motivate the approach.
-2. [Why](code-anchored-context-why.md) — the principle and the
-   reference vs working context model.
+2. [Why](code-anchored-context-why.md) — the principle, the reference vs working
+   context model, and how it relates to the practices it bundles.
 3. [The Structure](code-anchored-context-structure.md) — the concrete folder
    layout.
-4. [Markdown For Work, HTML For People](code-anchored-context-formats.md) — what
+4. [Keeping Reference In Sync](code-anchored-context-reference-sync.md) — how
+   release-anchored reference stays true via the git-tag diff workflow.
+5. [Markdown For Work, HTML For People](code-anchored-context-formats.md) — what
    format the context should live in.
+6. [Limitations](code-anchored-context-limitations.md) — when not to use it,
+   the anti-patterns, and the pitfalls to watch.
 
 ## HTML Pages
 

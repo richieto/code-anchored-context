@@ -64,4 +64,6 @@ this order:
 - [Code-Anchored Context: The Rationale](code-anchored-context-rationale.md) — the painpoints.
 - [Code-Anchored Context: Why](code-anchored-context-why.md) — the principle.
 - [Code-Anchored Context: The Structure](code-anchored-context-structure.md) — the layout.
+- [Code-Anchored Context: Keeping Reference In Sync](code-anchored-context-reference-sync.md) — keeping released reference true.
 - [Code-Anchored Context: Markdown For Work, HTML For People](code-anchored-context-formats.md) — the format.
+- [Code-Anchored Context: Limitations](code-anchored-context-limitations.md) — when not to use it.

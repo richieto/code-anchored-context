@@ -32,6 +32,9 @@ rollout controls.
 Capture scripts, commands, CLIs, jobs, or approved automation integrations
 that may be needed.
 
+> Reminder: reference secrets by name. Never embed tokens, credentials, or
+> connection strings in commands or scripts captured here.
+
 ## Rollout Notes
 
 Describe staged rollout, compatibility windows, or release coordination.

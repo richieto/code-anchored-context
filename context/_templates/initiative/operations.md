@@ -37,6 +37,9 @@ safe, whether roll-forward is required, and what state must be repaired.
 Capture migrations, backfills, cleanups, retention, repair scripts, manual
 support procedures, and validation queries.
 
+> Reminder: redact secrets, connection strings, and personal data from any
+> logs, queries, or procedures recorded here.
+
 ## Actionable Tooling
 
 List CLIs, scripts, dashboards-as-code, alerts-as-code, or other approved

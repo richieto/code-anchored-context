@@ -43,3 +43,7 @@ format, two different jobs: one tells the story, the other maps the mechanics.
 It is not markdown vs HTML. It is using the right format for the right
 audience — and keeping both anchored to the same underlying context instead of
 letting them drift into separate stories.
+
+For the honest accounting of where this whole approach is not worth the cost,
+see the closing companion article,
+[Code-Anchored Context: Limitations](code-anchored-context-limitations.md).

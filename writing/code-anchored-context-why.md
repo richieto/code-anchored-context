@@ -34,6 +34,13 @@ Reference stays stable and release-accurate: it describes a known
 release, not an unfinished branch. Working context is allowed to evolve —
 it is where humans and agents work through ambiguity.
 
+Be aware that this means `context/` *drifts by design*. It is working-time
+scaffolding, not the source of truth. The durable conclusions are folded back
+into `reference/` when a release is accepted, so reference is eventually
+consistent with shipped code while `context/` is free to move on. For how that
+sync actually happens, see the companion article,
+[Code-Anchored Context: Keeping Reference In Sync](code-anchored-context-reference-sync.md).
+
 ## The Principle
 
 I think of this as **Code-Anchored Context**. Not a methodology — a rule of
@@ -46,6 +53,40 @@ It is opinionated on purpose: prefer repository-local context, explicit
 lifetimes, and navigable structure over scattered notes that only make sense
 to the people who were in the room. Repository-local context scales beyond one
 person.
+
+## Who This Is For
+
+This assumes a harness-engineering model: an engineer working *through* an
+agent and staying accountable for the result, not a fully autonomous agent
+documenting itself unsupervised. The structure pays off because a human plans,
+reviews, and implements deliberately — often across separate sessions — rather
+than asking one session to do everything at once.
+
+That separation also dissolves the obvious objection that all this context will
+crowd the agent's context window. It only competes if you do everything in one
+go. When planning happens in one session, review in another, and implementation
+in a third that refers back to the settled plan, each session carries only what
+it needs. For the cases where this model is the wrong fit, see the companion
+article,
+[Code-Anchored Context: Limitations](code-anchored-context-limitations.md).
+
+## Where It Shines
+
+The value compounds with how code-first your repository already is. The more of
+your system that lives as code and CLI-driven tooling — infrastructure as code,
+CI/CD as code, end-to-end suites like Playwright, integration and unit tests,
+deployment and operational scripts — the more an agent can take in at once.
+
+That breadth is what changes the agent's behavior. When the surrounding system
+is visible as code, the agent is forced to look at the big picture: it can judge
+whether a change is trivial or massive, reason about the overall impact across
+boundaries it would otherwise never see, and propose alternatives instead of
+just executing the first path that works. Context is the difference between an
+agent that edits a file and one that understands the blast radius of the edit.
+
+This is why the approach spans the whole arc — from planning to observability
+and everything in between. Each code-first surface you add is one more place the
+agent inherits context for free, and one less place where it has to guess.
 
 ## Why It Travels
 
@@ -67,6 +108,20 @@ flowchart LR
   Dev -->|"release-doc-notes.md captures future reference impact"| Reference
   Reference -->|"stable release truth"| Agents
 ```
+
+## A Deliberate Bundle
+
+None of the individual pieces here are novel, and that is intentional.
+Architecture decision records, docs-as-code, monorepo context conventions, and
+spec-driven development each already solve part of the problem. Code-Anchored
+Context does not try to replace them — it composes them around one organizing
+idea: a clear split between release-anchored `reference/` truth and evolving
+`context/` work, made navigable for both humans and agents.
+
+The contribution is the bundle and the lifetimes, not a new primitive. If you
+already practice ADRs and docs-as-code, you are most of the way here; this gives
+those habits a shared home and an explicit boundary between what shipped and
+what is still being figured out.
 
 ## Why It Matters
 

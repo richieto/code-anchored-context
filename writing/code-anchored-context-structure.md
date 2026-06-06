@@ -79,6 +79,12 @@ Not every initiative needs every file. The point is to give stable knowledge a
 place to land — testing, delivery, and infrastructure are first-class context,
 not afterthoughts buried in pipeline files or PRs.
 
+Treat the template as a starting point to tune, not a checklist to satisfy.
+Start with the files the work actually needs — often just `README.md`,
+`plan.md`, and a `spec.md` — and add the rest only when there is real knowledge
+to put in them. Empty stubs train everyone to skim past these files; trim the
+template down to your project and grow it deliberately.
+
 ## Programs And Planned Initiatives
 
 Some work is bigger than one release. A program holds durable multi-release
@@ -121,6 +127,11 @@ Changing the current release is more than editing a pointer. When
 planned initiatives, promote items targeting the new release into the release
 folder, update links both ways, and preserve the originals as history.
 
+This does not add new discipline to the team. Deciding what ships, what carries
+forward, and what gets deferred is work the team already does at every release.
+The transition just executes that decision once the team is aligned — and it is
+a one-person job. One maintainer runs it; everyone else keeps working.
+
 ```mermaid
 flowchart TD
   Start["Set a new current release"]
@@ -132,6 +143,9 @@ flowchart TD
   Start --> Scan --> Promote --> Link --> Preserve
 ```
 
-For the last piece — what format this context should live in — see the
-companion article,
-[Code-Anchored Context: Markdown For Work, HTML For People](code-anchored-context-formats.md).
+With the layout in place, the next question is how the stable half stays true.
+See the companion article,
+[Code-Anchored Context: Keeping Reference In Sync](code-anchored-context-reference-sync.md),
+and then
+[Code-Anchored Context: Markdown For Work, HTML For People](code-anchored-context-formats.md)
+for what format the context should live in.
