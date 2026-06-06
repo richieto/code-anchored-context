@@ -41,6 +41,23 @@ consistent with shipped code while `context/` is free to move on. For how that
 sync actually happens, see the companion article,
 [Code-Anchored Context: Keeping Reference In Sync](code-anchored-context-reference-sync.md).
 
+## Why `reference/`, Not `docs/`
+
+`reference/` is probably a lot of what already lives in your `docs/` folder
+today. I did not simply call it `docs/` because this has to drop into existing
+projects, and I cannot know what your `docs/` already holds. Overloading a
+folder that may already mean something else invites collisions and silent
+reinterpretation. So `reference/` names one specific thing — released,
+behavior-accurate truth for a known release — and leaves `docs/` for everything
+else a repository legitimately needs that is *not* specific to the artifacts
+produced: contribution guides, onboarding, runbooks, and the like.
+
+That said, the name is a default, not a rule. If `docs/` fits your repository
+better, rename it.
+
+> The boundary that matters is reference vs working context, not the label on
+> the folder.
+
 ## The Principle
 
 I think of this as **Code-Anchored Context**. Not a methodology — a rule of

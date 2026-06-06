@@ -87,8 +87,16 @@ template down to your project and grow it deliberately.
 
 ## Programs And Planned Initiatives
 
-Some work is bigger than one release. A program holds durable multi-release
-context:
+Some work is bigger than one release — and not by accident. You design the
+architecture for a whole system, but time-to-market pressure forces you to
+slice it and ship in phases: phase one, phase two, phase three. Other work is
+phased by nature — retiring a subsystem, marking something obsolete, migrating
+to a new approach — where the change needs transition time and cannot land in
+one release. This is the enterprise-grade case programs exist to solve: a
+long-lived effort whose shape is known up front but whose delivery is
+deliberately staged.
+
+A program holds that durable multi-release context:
 
 ```text
 context/programs/<program>/
@@ -119,6 +127,13 @@ context/backlog/items/<originating-initiative>--<item>.md
 Each item records where it came from, why it was deferred, future value, and
 re-entry criteria. If picked up later, it is marked promoted and linked — never
 silently rewritten.
+
+The point is that the thinking you already paid for does not evaporate when the
+item is cut from scope. You produced real value while planning it, and the
+backlog keeps it — so the next person, a teammate or a future agent, picks it up
+and starts from something rather than from zero.
+
+> Cut scope is not cut value. Preserve the reasoning, not just the decision.
 
 ## Release Transitions
 
