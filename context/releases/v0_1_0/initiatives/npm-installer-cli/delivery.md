@@ -42,6 +42,7 @@ No runtime feature flags or release toggles are required.
 
 - `npm test`
 - `npx code-anchored-context init` after publish
+- `npx code-anchored-context status` after publish
 
 Companion writing and presentation drafts live under `writing/` in this
 repository only. They are intentionally outside the npm `files` list.
@@ -52,6 +53,12 @@ Version `0.2.4` adds `context/project-profile.md` as the repo-wide operating
 profile starter.
 Version `0.2.5` adds the `release-context-closeout` skill and updates the
 initializer to install all packaged repository skills.
+Version `0.2.6` adds the `project-baseline` adoption skill, writes installed
+scaffold metadata to `context/.code-anchored-context.json`, and exposes
+`code-anchored-context status`.
+Version `0.2.7` changes the initializer's default release slug to `v1_0_0`
+for existing-product adoption while keeping the package template source under
+`v0_1_0`.
 
 ## Rollout Notes
 

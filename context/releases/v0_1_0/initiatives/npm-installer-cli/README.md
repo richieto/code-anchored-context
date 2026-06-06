@@ -20,6 +20,7 @@ context, and optional `reference/` starter files into the target repo.
 - `README.md`
 - `AGENTS.md`
 - `.agents/skills/code-anchored-context/SKILL.md`
+- `.agents/skills/project-baseline/SKILL.md`
 - `.agents/skills/release-context-closeout/SKILL.md`
 - `context/project-profile.md`
 - `context/README.md`
@@ -79,6 +80,18 @@ Infrastructure and operations notes are not applicable for this initiative.
 - `release-context-closeout` added as the packaged post-release lifecycle
   skill for closing a merged release, advancing context, carrying work
   forward, and integrating shipped knowledge into `reference/`.
+- `project-baseline` added as the packaged first-adoption lifecycle skill for
+  populating project profile, domain terminology, reference area guides,
+  baseline reference pages, and baseline clarifications after `init`.
+- Installer now writes `context/.code-anchored-context.json` with scaffold
+  version metadata so targets can see which package last initialized them.
+- `code-anchored-context status` reports the running CLI version and installed
+  scaffold metadata without requiring a consumer `package.json`.
+- Package version bumped to `0.2.6` for the project baseline skill and
+  scaffold metadata/status support.
+- Initial release default changed to `v1_0_0` for existing-product adoption,
+  while the package keeps `v0_1_0` as its internal template source release.
+- Package version bumped to `0.2.7` for the default release change.
 - README adoption and publishing flow updated.
 - Reference authoring guidance now defaults to product-readable,
   technically anchored prose.

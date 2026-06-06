@@ -36,6 +36,8 @@ There are two valid ways to introduce or maintain `reference/`.
 Use this mode only when a human explicitly asks to document the current system
 as a starting point. This is common when adopting the template in an existing
 project that has little or no reference material.
+After `code-anchored-context init`, agents should use
+`.agents/skills/project-baseline/SKILL.md` for this first adoption pass.
 
 When creating a baseline:
 

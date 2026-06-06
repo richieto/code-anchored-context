@@ -31,7 +31,13 @@ flowchart LR
 ## Data And Contracts
 
 - `PROJECT_NAME` placeholders are replaced with the selected project name.
-- `v0_1_0` placeholders are replaced with the selected initial release.
+- `v0_1_0` is the package template source release.
+- `v1_0_0` is the default selected initial release for new installations.
+- Template `v0_1_0` placeholders are replaced with the selected initial
+  release.
+- Template release folders are renamed only when the context scaffold was
+  freshly copied or replaced. Existing target `context/` folders are skipped
+  without release-folder renames unless `--force` is passed.
 - Custom release slugs are limited to path-safe characters.
 - Existing generated paths are skipped unless `--force` is passed.
 

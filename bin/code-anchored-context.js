@@ -16,13 +16,19 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const defaultRelease = 'v0_1_0';
-const defaultReleaseLabel = 'v0.1.0';
+const templateRelease = 'v0_1_0';
+const templateReleaseLabel = 'v0.1.0';
+const defaultRelease = 'v1_0_0';
 const skillName = 'code-anchored-context';
+const metadataRelativePath = 'context/.code-anchored-context.json';
 const repositorySkills = [
   {
     name: 'code-anchored-context',
     readmeEntry: '- `code-anchored-context` - use central `context/` initiatives for planning, implementation context, programs, planned initiatives, ADRs, backlog, and release-documentation notes.'
+  },
+  {
+    name: 'project-baseline',
+    readmeEntry: '- `project-baseline` - run the first adoption baseline pass: populate `context/project-profile.md`, domain terminology, reference area guides, baseline reference pages, and baseline clarifications.'
   },
   {
     name: 'release-context-closeout',
@@ -34,17 +40,20 @@ const agentSectionEnd = '<!-- code-anchored-context:end -->';
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
+  const packageJson = await readPackageJson();
 
   if (args.help) {
-    printHelp();
+    printHelp(packageJson);
     return;
   }
 
   if (args.version) {
-    const packageJson = JSON.parse(
-      await readFile(path.join(packageRoot, 'package.json'), 'utf8')
-    );
     console.log(packageJson.version);
+    return;
+  }
+
+  if (args.command === 'status') {
+    await printStatus(args.target, packageJson);
     return;
   }
 
@@ -61,7 +70,8 @@ async function main() {
     projectName,
     release: args.release,
     force: args.force,
-    dryRun: args.dryRun
+    dryRun: args.dryRun,
+    packageJson
   });
 
   await installer.init({ includeReference: args.reference });
@@ -170,11 +180,12 @@ function readOptionValue(argv, index, optionName) {
   return value;
 }
 
-function printHelp() {
+function printHelp(packageJson) {
   console.log(`code-anchored-context
 
 Usage:
   code-anchored-context init [options]
+  code-anchored-context status [options]
 
 Options:
   --target <path>          Project root to install into. Defaults to cwd.
@@ -188,7 +199,13 @@ Options:
 
 Examples:
   npx code-anchored-context init --project-name "My App"
-  npx code-anchored-context init --release v1_0_0 --no-reference
+  npx code-anchored-context@${packageJson.version} init --project-name "My App"
+  npx code-anchored-context status --target ../existing-project
+  npx code-anchored-context init --release v2_0_0 --no-reference
+
+Use an explicit npm version, such as code-anchored-context@${packageJson.version},
+when you want a reproducible initializer. The status command reads
+${metadataRelativePath} from an initialized project.
 `);
 }
 
@@ -215,12 +232,13 @@ async function inferProjectName(targetRoot) {
 }
 
 class Installer {
-  constructor({ targetRoot, projectName, release, force, dryRun }) {
+  constructor({ targetRoot, projectName, release, force, dryRun, packageJson }) {
     this.targetRoot = targetRoot;
     this.projectName = projectName;
     this.release = release;
     this.force = force;
     this.dryRun = dryRun;
+    this.packageJson = packageJson;
     this.actions = [];
     this.agentsFilePath = path.join(targetRoot, 'AGENTS.md');
   }
@@ -230,14 +248,19 @@ class Installer {
 
     await this.installAgentsFile();
     await this.installSkill();
-    await this.copyTemplatePath('context', 'context');
-    await this.renameReleasePaths();
+    const installedContext = await this.copyTemplatePath('context', 'context');
+
+    if (installedContext) {
+      await this.renameReleasePaths();
+    }
 
     if (includeReference) {
       await this.copyTemplatePath('reference', 'reference');
     } else {
       this.note('skip reference/ (--no-reference)');
     }
+
+    await this.writeMetadata({ includeReference });
 
     this.printSummary();
   }
@@ -322,6 +345,11 @@ Use [\`context/project-profile.md\`](context/project-profile.md) for
 repo-wide stack, command, testing, delivery, infrastructure, observability,
 and generated-artifact facts when it has been populated.
 
+For first-time adoption after \`init\`, use the repo-wide skill at
+[\`.agents/skills/project-baseline/SKILL.md\`](.agents/skills/project-baseline/SKILL.md)
+to populate the project profile, domain terminology, baseline reference, and
+baseline clarification notes.
+
 For behavior-changing work, use the repo-wide skill at
 [\`.agents/skills/${skillName}/SKILL.md\`](.agents/skills/${skillName}/SKILL.md).
 Keep initiative knowledge centralized under \`context/\`; area
@@ -388,13 +416,14 @@ ${agentSectionEnd}`;
 
       if (!this.force) {
         this.note(`skip ${targetRelative} (already exists${variantNote}; use --force to replace)`);
-        return;
+        return false;
       }
 
       await this.removePath(targetInfo.path, `replace ${targetInfo.display}`);
     }
 
     await this.copyRecursive(sourcePath, targetPath, targetRelative);
+    return true;
   }
 
   async findExistingTargetPath(targetRelative) {
@@ -476,7 +505,7 @@ ${agentSectionEnd}`;
   }
 
   shouldSkipTemplatePath(displayPath) {
-    const initiativePrefix = `context/releases/${defaultRelease}/initiatives/`;
+    const initiativePrefix = `context/releases/${templateRelease}/initiatives/`;
 
     return (
       displayPath.startsWith(initiativePrefix) &&
@@ -489,14 +518,14 @@ ${agentSectionEnd}`;
       return this.renderStarterCurrent();
     }
 
-    if (displayPath === `context/releases/${defaultRelease}/backlog.md`) {
+    if (displayPath === `context/releases/${templateRelease}/backlog.md`) {
       return this.renderStarterReleaseBacklog();
     }
 
     let text = contents.toString('utf8');
     text = text.replaceAll('PROJECT_NAME', this.projectName);
-    text = text.replaceAll(defaultRelease, this.release);
-    text = text.replaceAll(defaultReleaseLabel, this.releaseLabel());
+    text = text.replaceAll(templateRelease, this.release);
+    text = text.replaceAll(templateReleaseLabel, this.releaseLabel());
     return text;
   }
 
@@ -556,25 +585,53 @@ No initiatives registered yet.
 `;
   }
 
+  async writeMetadata({ includeReference }) {
+    const metadataPath = path.join(this.targetRoot, metadataRelativePath);
+    const previous = await readOptionalJson(metadataPath);
+    const now = new Date().toISOString();
+    const referenceScaffold = includeReference || await exists(path.join(this.targetRoot, 'reference'))
+      ? 'included'
+      : 'not-installed';
+    const metadata = {
+      schemaVersion: 1,
+      packageName: this.packageJson.name,
+      installedVersion: this.packageJson.version,
+      firstInstalledVersion: previous?.firstInstalledVersion ?? previous?.installedVersion ?? this.packageJson.version,
+      firstInstalledAt: previous?.firstInstalledAt ?? previous?.installedAt ?? now,
+      lastUpdatedAt: now,
+      projectName: this.projectName,
+      initialRelease: previous?.initialRelease ?? this.release,
+      lastInitRelease: this.release,
+      referenceScaffold,
+      installedSkills: repositorySkills.map((skill) => skill.name)
+    };
+
+    await this.writeFile(
+      metadataPath,
+      `${JSON.stringify(metadata, null, 2)}\n`,
+      `${previous ? 'update' : 'create'} ${metadataRelativePath}`
+    );
+  }
+
   releaseLabel() {
     return this.release.replaceAll('_', '.');
   }
 
   async renameReleasePaths() {
-    if (this.release === defaultRelease) {
+    if (this.release === templateRelease) {
       return;
     }
 
     await this.renamePath(
-      path.join(this.targetRoot, 'context/releases', defaultRelease),
+      path.join(this.targetRoot, 'context/releases', templateRelease),
       path.join(this.targetRoot, 'context/releases', this.release),
-      `rename context/releases/${defaultRelease} to context/releases/${this.release}`
+      `rename context/releases/${templateRelease} to context/releases/${this.release}`
     );
 
     await this.renamePath(
-      path.join(this.targetRoot, 'context/_templates/program/releases', `${defaultRelease}.md`),
+      path.join(this.targetRoot, 'context/_templates/program/releases', `${templateRelease}.md`),
       path.join(this.targetRoot, 'context/_templates/program/releases', `${this.release}.md`),
-      `rename context/_templates/program/releases/${defaultRelease}.md to ${this.release}.md`
+      `rename context/_templates/program/releases/${templateRelease}.md to ${this.release}.md`
     );
   }
 
@@ -645,7 +702,51 @@ No initiatives registered yet.
 
     if (!this.dryRun) {
       console.log(`Next: ask your agent to read ${this.agentsFilePath}.`);
+      console.log('Then: ask your agent to use .agents/skills/project-baseline/SKILL.md for the first baseline pass.');
     }
+  }
+}
+
+async function readPackageJson() {
+  return JSON.parse(await readFile(path.join(packageRoot, 'package.json'), 'utf8'));
+}
+
+async function printStatus(target, packageJson) {
+  const targetRoot = path.resolve(target);
+  const metadataPath = path.join(targetRoot, metadataRelativePath);
+  const metadata = await readOptionalJson(metadataPath);
+
+  console.log(`Code-Anchored Context status for ${targetRoot}`);
+  console.log(`Running CLI version: ${packageJson.version}`);
+
+  if (!metadata) {
+    console.log('Installed metadata: not found');
+    console.log(`Metadata path: ${metadataRelativePath}`);
+    return;
+  }
+
+  console.log(`Installed version: ${metadata.installedVersion ?? 'Unknown'}`);
+  console.log(`Project: ${metadata.projectName ?? 'Unknown'}`);
+  console.log(`Initial release: ${metadata.initialRelease ?? 'Unknown'}`);
+  console.log(`Last init release: ${metadata.lastInitRelease ?? 'Unknown'}`);
+  console.log(`Reference scaffold: ${metadata.referenceScaffold ?? 'Unknown'}`);
+  console.log(`Installed skills: ${formatList(metadata.installedSkills)}`);
+  console.log(`Metadata path: ${metadataRelativePath}`);
+
+  if (metadata.installedVersion && metadata.installedVersion !== packageJson.version) {
+    console.log('Note: running CLI version differs from installed metadata.');
+  }
+}
+
+function formatList(value) {
+  return Array.isArray(value) && value.length > 0 ? value.join(', ') : 'Unknown';
+}
+
+async function readOptionalJson(filePath) {
+  try {
+    return JSON.parse(await readFile(filePath, 'utf8'));
+  } catch {
+    return undefined;
   }
 }
 

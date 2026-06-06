@@ -18,6 +18,8 @@ generated artifacts.
 - `current.md` points to the active release context.
 - `project-profile.md` captures repo-wide stack, command, testing, delivery,
   infrastructure, operations, and generated-artifact facts when populated.
+- `baseline-clarifications.md`, when present, captures unresolved questions,
+  assumptions, and deferred coverage from a first adoption baseline.
 - `programs/` contains durable multi-release working context.
 - `backlog/` contains deferred isolated work cut from initiatives.
 - `releases/` contains release-scoped working context.

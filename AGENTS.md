@@ -12,6 +12,11 @@ Use [`context/project-profile.md`](context/project-profile.md) for
 repo-wide stack, command, testing, delivery, infrastructure, observability,
 and generated-artifact facts when it has been populated.
 
+For first-time adoption after `init`, use the repo-wide skill at
+[`.agents/skills/project-baseline/SKILL.md`](.agents/skills/project-baseline/SKILL.md)
+to populate the project profile, domain terminology, baseline reference, and
+baseline clarification notes.
+
 For behavior-changing work, use the repo-wide skill at
 [`.agents/skills/code-anchored-context/SKILL.md`](.agents/skills/code-anchored-context/SKILL.md).
 Keep initiative knowledge centralized under `context/`; area

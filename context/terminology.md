@@ -12,6 +12,7 @@ backlog items, ADRs, agent summaries, and release-transition work.
 | `reference/` | Accepted reference. It describes shipped or baseline behavior for a release/tag and is not edited during normal development work. |
 | `context/current.md` | Pointer to the current active release context. Updating this is a release transition. |
 | `context/project-profile.md` | Optional repo-wide operating profile for stack, commands, source roots, verification, delivery, infrastructure, observability, and generated artifacts. |
+| `context/baseline-clarifications.md` | Optional first-baseline notes for unresolved ambiguities, assumptions, and deferred baseline coverage that should not be stated as accepted reference behavior. |
 | `context/releases/<version>/` | Release-scoped working context for one version. |
 | `context/programs/` | Durable multi-release working context. |
 | `context/backlog/items/` | Deferred isolated work cut from initiatives but worth preserving. |

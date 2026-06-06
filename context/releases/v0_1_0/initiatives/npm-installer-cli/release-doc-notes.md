@@ -37,6 +37,21 @@ explicitly asks for a reference refresh or a specific reference fix.
   closing a merged or accepted release, advancing the current release,
   carrying unfinished work forward, and integrating shipped behavior into
   `reference/`.
+- The package now installs a third skill, `project-baseline`, for the first
+  adoption baseline after `init`: project profile, domain terminology,
+  reference area guides, baseline reference pages, and baseline clarification
+  notes.
+- `init` now writes `context/.code-anchored-context.json` so a consuming repo
+  can see which package version last initialized or refreshed the scaffold
+  without adding a `package.json` dependency.
+- `code-anchored-context status` now reports the running CLI version and
+  installed scaffold metadata for a target repository.
+- The default initial release for new installations is now `v1_0_0`, matching
+  the expectation that most adoptions happen in existing products. Users can
+  still override it with `--release`.
+- Existing target `context/` folders are still skipped unless `--force` is
+  passed; the new default does not rename release folders inside a skipped
+  context.
 - `context/project-profile.md` now has a release closeout profile section for
   base branch, tag pattern, branch naming, commit/push/PR policy, acceptance
   gates, and documentation validation commands.
@@ -46,6 +61,7 @@ explicitly asks for a reference refresh or a specific reference fix.
 - Root `README.md` adoption and publishing sections.
 - `context/project-profile.md` starter guidance.
 - `.agents/skills/code-anchored-context/SKILL.md` project-profile workflow.
+- `.agents/skills/project-baseline/SKILL.md` first-adoption baseline workflow.
 - `.agents/skills/release-context-closeout/SKILL.md` post-release closeout
   workflow.
 - `reference/README.md` root orientation.
@@ -59,6 +75,10 @@ explicitly asks for a reference refresh or a specific reference fix.
 - Ask users to run `--dry-run` first when adopting into a mature repo with an
   existing `AGENTS.md`, `.agents/`, `context/`, or `reference/`.
 - Existing `docs/` folders are intentionally left alone.
+- Users who care about repeatable initialization can pin the npm package
+  version, for example `npx code-anchored-context@0.2.7 init`.
+- Users can run `npx code-anchored-context status` to compare the running CLI
+  version with target repo metadata.
 
 ## Exclusions
 

@@ -10,6 +10,7 @@ import assert from 'node:assert/strict';
 const execFileAsync = promisify(execFile);
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const cliPath = path.join(repoRoot, 'bin/code-anchored-context.js');
+const packageJson = JSON.parse(await readFile(path.join(repoRoot, 'package.json'), 'utf8'));
 
 test('init installs agent context into an empty project', async () => {
   const target = await mkdtemp(path.join(tmpdir(), 'cac-empty-'));
@@ -34,6 +35,10 @@ test('init installs agent context into an empty project', async () => {
     true
   );
   assert.equal(
+    await exists(path.join(target, '.agents/skills/project-baseline/SKILL.md')),
+    true
+  );
+  assert.equal(
     await exists(path.join(target, '.agents/skills/release-context-closeout/SKILL.md')),
     true
   );
@@ -47,6 +52,7 @@ test('init installs agent context into an empty project', async () => {
   const agents = await readFile(path.join(target, 'AGENTS.md'), 'utf8');
   assert.match(agents, /# Agent Guidance - Smoke App/);
   assert.match(agents, /\.agents\/skills\/code-anchored-context\/SKILL\.md/);
+  assert.match(agents, /\.agents\/skills\/project-baseline\/SKILL\.md/);
   assert.match(agents, /\.agents\/skills\/release-context-closeout\/SKILL\.md/);
 
   const current = await readFile(path.join(target, 'context/current.md'), 'utf8');
@@ -62,6 +68,33 @@ test('init installs agent context into an empty project', async () => {
   const backlog = await readFile(path.join(target, 'context/releases/v1_2_3/backlog.md'), 'utf8');
   assert.match(backlog, /# v1\.2\.3 Backlog/);
   assert.match(backlog, /No initiatives registered yet/);
+
+  const metadata = JSON.parse(
+    await readFile(path.join(target, 'context/.code-anchored-context.json'), 'utf8')
+  );
+  assert.equal(metadata.installedVersion, packageJson.version);
+  assert.equal(metadata.projectName, 'Smoke App');
+  assert.equal(metadata.initialRelease, 'v1_2_3');
+  assert.equal(metadata.lastInitRelease, 'v1_2_3');
+  assert.equal(metadata.referenceScaffold, 'not-installed');
+  assert.deepEqual(metadata.installedSkills, [
+    'code-anchored-context',
+    'project-baseline',
+    'release-context-closeout'
+  ]);
+
+  const status = await execFileAsync(process.execPath, [
+    cliPath,
+    'status',
+    '--target',
+    target
+  ]);
+
+  assert.match(status.stdout, new RegExp(`Running CLI version: ${escapeRegExp(packageJson.version)}`));
+  assert.match(status.stdout, new RegExp(`Installed version: ${escapeRegExp(packageJson.version)}`));
+  assert.match(status.stdout, /Project: Smoke App/);
+  assert.match(status.stdout, /Reference scaffold: not-installed/);
+  assert.match(status.stdout, /Installed skills: code-anchored-context, project-baseline, release-context-closeout/);
 });
 
 test('init appends guidance to an existing AGENTS file', async () => {
@@ -85,6 +118,18 @@ test('init appends guidance to an existing AGENTS file', async () => {
   assert.match(firstAgents, /# Existing Agent Rules/);
   assert.match(firstAgents, /<!-- code-anchored-context:start -->/);
   assert.match(firstAgents, /\.agents\/skills\/code-anchored-context\/SKILL\.md/);
+  assert.match(firstAgents, /\.agents\/skills\/project-baseline\/SKILL\.md/);
+
+  const current = await readFile(path.join(target, 'context/current.md'), 'utf8');
+  assert.match(current, /Current release: `v1_0_0`/);
+  assert.equal(await exists(path.join(target, 'context/releases/v1_0_0')), true);
+  assert.equal(await exists(path.join(target, 'context/releases/v0_1_0')), false);
+
+  const metadata = JSON.parse(
+    await readFile(path.join(target, 'context/.code-anchored-context.json'), 'utf8')
+  );
+  assert.equal(metadata.initialRelease, 'v1_0_0');
+  assert.equal(metadata.lastInitRelease, 'v1_0_0');
 
   const { stdout } = await execFileAsync(process.execPath, [
     cliPath,
@@ -125,6 +170,7 @@ test('init augments an existing AGENTS file that only points to the primary skil
 
   const agents = await readFile(path.join(target, 'AGENTS.md'), 'utf8');
   assert.match(agents, /\.agents\/skills\/code-anchored-context\/SKILL\.md/);
+  assert.match(agents, /\.agents\/skills\/project-baseline\/SKILL\.md/);
   assert.match(agents, /\.agents\/skills\/release-context-closeout\/SKILL\.md/);
 });
 
@@ -208,6 +254,29 @@ test('init skips existing reference case variants', async () => {
   );
 });
 
+test('init does not rename release folders when existing context is skipped', async () => {
+  const target = await mkdtemp(path.join(tmpdir(), 'cac-existing-context-'));
+  await mkdir(path.join(target, 'context/releases/v0_1_0'), { recursive: true });
+  await writeFile(
+    path.join(target, 'context/releases/v0_1_0/README.md'),
+    '# Existing v0 context\n'
+  );
+
+  const { stdout } = await execFileAsync(process.execPath, [
+    cliPath,
+    'init',
+    '--target',
+    target,
+    '--project-name',
+    'Existing Context App',
+    '--no-reference'
+  ]);
+
+  assert.match(stdout, /skip context \(already exists; use --force to replace\)/);
+  assert.equal(await exists(path.join(target, 'context/releases/v0_1_0')), true);
+  assert.equal(await exists(path.join(target, 'context/releases/v1_0_0')), false);
+});
+
 test('init appends to existing skill README case variants', async () => {
   const target = await mkdtemp(path.join(tmpdir(), 'cac-skill-readme-case-'));
   await mkdir(path.join(target, '.agents/skills'), { recursive: true });
@@ -238,7 +307,23 @@ test('init appends to existing skill README case variants', async () => {
   const readme = await readFile(path.join(target, '.agents/skills/readme.md'), 'utf8');
   assert.match(readme, /existing-skill/);
   assert.match(readme, /code-anchored-context/);
+  assert.match(readme, /project-baseline/);
   assert.match(readme, /release-context-closeout/);
+});
+
+test('status reports missing metadata for older installs', async () => {
+  const target = await mkdtemp(path.join(tmpdir(), 'cac-status-missing-'));
+
+  const { stdout } = await execFileAsync(process.execPath, [
+    cliPath,
+    'status',
+    '--target',
+    target
+  ]);
+
+  assert.match(stdout, /Running CLI version:/);
+  assert.match(stdout, /Installed metadata: not found/);
+  assert.match(stdout, /Metadata path: context\/\.code-anchored-context\.json/);
 });
 
 async function exists(filePath) {
@@ -248,4 +333,8 @@ async function exists(filePath) {
   } catch {
     return false;
   }
+}
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }

@@ -53,6 +53,10 @@ operating profile or accepted behavior reference, distinguish
 `context/project-profile.md` from baseline reference under `reference/` before
 editing.
 
+For first-time adoption after `code-anchored-context init`, use the
+`project-baseline` skill when the work includes both repo operating profile
+population and baseline reference creation.
+
 If the workspace starts inside a subfolder, navigate upward to the repository
 root when the environment allows it. If `context/` is not available in
 the workspace, mention that limitation in the task summary.

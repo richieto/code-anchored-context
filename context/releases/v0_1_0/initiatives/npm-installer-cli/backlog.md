@@ -33,6 +33,12 @@
 | Done | Add release closeout skill | Skills | Added `.agents/skills/release-context-closeout/SKILL.md` for post-release context cleanup, carry-forward, and reference integration. |
 | Done | Install all packaged skills | CLI | Installer now copies each declared repository skill and augments existing skill indexes. |
 | Done | Bump release closeout version | Delivery | `package.json` is now `0.2.5` for the second packaged skill. |
+| Done | Add project baseline skill | Skills | Added `.agents/skills/project-baseline/SKILL.md` for first adoption baseline passes after `init`. |
+| Done | Record installed scaffold version | CLI | `init` writes `context/.code-anchored-context.json` with package version, project, release, reference scaffold, and installed skill metadata. |
+| Done | Add scaffold status command | CLI | `code-anchored-context status` reports the running CLI version and installed scaffold metadata without requiring a target `package.json`. |
+| Done | Bump project baseline version | Delivery | `package.json` is now `0.2.6` for the adoption baseline skill and metadata/status support. |
+| Done | Default adoption release to v1.0.0 | CLI | The consumer-facing default `--release` value is now `v1_0_0`, while the package still renames from the internal `v0_1_0` template source. |
+| Done | Bump default release version | Delivery | `package.json` is now `0.2.7` for the default initial release change. |
 
 ## Deferred
 

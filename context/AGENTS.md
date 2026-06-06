@@ -26,6 +26,9 @@ repair context.
 - Use `context/project-profile.md` for stable repo-wide operating facts.
   Populate it only from source-backed discovery or an explicit human request
   for a repository baseline.
+- Use `context/baseline-clarifications.md`, when present, for unresolved
+  first-baseline ambiguities, assumptions, and deferred coverage that should
+  not be stated as accepted reference behavior.
 - Keep initiative knowledge centralized here. Area `AGENTS.md` files may point
   here, but they should not duplicate initiative content.
 - Do not move in-progress plans into `reference/`.
