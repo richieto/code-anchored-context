@@ -1,7 +1,7 @@
 # context/
 
-This folder is the working bench for Code-Anchored Context: the live planning
-and implementation context for work in progress on this repository.
+This folder is the working bench for PROJECT_NAME: the live planning and
+implementation context for work in progress.
 
 It is meant to drift and to be disposable. Initiatives accumulate here while
 work is active and can be archived once their durable conclusions have been

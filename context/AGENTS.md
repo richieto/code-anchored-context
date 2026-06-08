@@ -4,52 +4,29 @@ Scope: everything under `/context`.
 
 ## Purpose
 
-This folder is the canonical home for in-progress working context: specs,
-interface notes, architecture notes, actionable operations notes, ADRs,
-backlogs, implementation plans, and release-documentation notes.
-`project-profile.md` is the canonical home for repo-wide operating facts such
-as stack, commands, test layers, CI/CD, infrastructure, observability, and
-generated artifacts when a baseline has been populated.
+This folder is the working bench for this repository: the live planning and
+implementation context for work in progress. It is disposable by design.
+Initiatives accumulate here while active and can be archived once their durable
+conclusions have been distilled out.
 
-Testing, delivery, and infrastructure notes belong here when they affect how
-work is verified, shipped, deployed, or hosted. Operational notes belong here
-only when they are actionable runtime, support, observability, rollback, or
-repair context.
-
-`context/` describes what is being planned, built, debated, or validated.
-`reference/` describes what has shipped for a release.
+The two things that persist are the append-only decision log under
+[`../decisions/`](../decisions/) and, for projects that use it, release-anchored
+behavior under `reference/`.
 
 ## Editing Rules
 
-- Use `context/terminology.md` as the canonical vocabulary for programs,
-  planned initiatives, release initiatives, backlog items, and promotion.
-- Use `context/project-profile.md` for stable repo-wide operating facts.
-  Populate it only from source-backed discovery or an explicit human request
-  for a repository baseline.
-- Use `context/baseline-clarifications.md`, when present, for unresolved
-  first-baseline ambiguities, assumptions, and deferred coverage that should
-  not be stated as accepted reference behavior.
-- Keep initiative knowledge centralized here. Area `AGENTS.md` files may point
-  here, but they should not duplicate initiative content.
-- Do not move in-progress plans into `reference/`.
-- Use `release-doc-notes.md` inside an initiative to capture what may need to
-  become reference later.
-- Create initiatives from `context/_templates/initiative/`.
-- Create durable multi-release programs from `context/_templates/program/`.
-- Create scoped future program work from
-  `context/_templates/planned-initiative/` under a program's
-  `planned-initiatives/` folder.
-- Create deferred isolated backlog items from
-  `context/_templates/backlog-item.md`.
-- Keep release initiative history in the release folder. Use `programs/` for
-  multi-release context, `planned-initiatives/` for scoped future program work,
-  and `backlog/items/` for isolated deferred work.
-- Treat changes to `context/current.md` as release transitions. Use
-  `context/_templates/release-transition.md` and promote matching planned
-  initiatives for the new current release.
-- When a backlog item is picked up later, mark it as promoted and link to the
-  new release initiative instead of rewriting the item into an active plan.
-- Keep templates practical. If a file does not apply to an initiative, mark it
-  as not applicable or omit it after copying the template.
-- Use `operations.md` only for actionable runtime, support, observability,
-  rollback, or repair context.
+- Keep one folder per piece of work under `context/initiatives/<slug>/`. There
+  are no release folders, programs, or promotion machinery in this model.
+- Start a new initiative by copying `context/_templates/initiative/`.
+- Use `plan.md` as the messy alignment space, but do not let settled truth live
+  only there. Promote it into the per-concern docs (`spec.md`, `interface.md`,
+  `architecture.md`, `testing.md`, `delivery.md`, `infrastructure.md`,
+  `operations.md`, `backlog.md`) and into `release-doc-notes.md`.
+- Promote accepted architecture and design decisions into the repo-wide
+  `decisions/` log. Do not leave durable decisions only in an initiative.
+- Use `project-profile.md` for stable repo-wide operating facts (stack,
+  commands, test layers, CI/CD, infrastructure, observability).
+- Do not edit `reference/` from working context. Capture future reference impact
+  in an initiative's `release-doc-notes.md`.
+
+Consider these rules if they affect your changes.

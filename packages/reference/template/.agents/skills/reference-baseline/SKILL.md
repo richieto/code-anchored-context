@@ -1,36 +1,31 @@
 ---
-name: project-baseline
-description: Run the first Code-Anchored Context adoption baseline. Use after init when a human asks to populate the project profile, document the current product baseline, create initial reference, generate domain terminology, or capture baseline ambiguities and clarifications before normal release work begins.
+name: reference-baseline
+description: Run the first baseline pass that documents a project's current accepted behavior under reference/. Use ONLY when a human explicitly asks to create initial/baseline reference, document the current system, or generate domain terminology and baseline clarifications. Do not trigger automatically.
 ---
 
-# Project Baseline
+# Reference Baseline
 
-Use this skill after `code-anchored-context init` when the project needs its
-first source-backed operating profile and accepted behavior baseline. The goal
-is to make the next release start from known project facts instead of an empty
-scaffold.
+Use this skill when a human explicitly asks to document the current system as a
+starting point under `reference/`. This is common when adopting reference in an
+existing project that has little or no reference material.
 
-This is a documentation and context workflow. It must not change executable
-behavior.
+This is a documentation workflow. It must not change executable behavior.
 
 ## Invariants
 
-- Read the nearest `AGENTS.md`, `context/current.md`,
-  `context/project-profile.md`, `reference/_authoring/README.md`, and
-  `reference/_authoring/workflow.md` before editing.
-- Keep `context/project-profile.md` for repo-wide operating facts: stack,
-  commands, source roots, verification, delivery, infrastructure,
-  observability, and generated artifacts.
+- Read the nearest `AGENTS.md`, `reference/README.md`,
+  `reference/_authoring/README.md`, and `reference/_authoring/workflow.md`
+  before editing.
 - Keep `reference/_authoring/terminology.md` for project and product domain
-  language. Do not replace `context/terminology.md`; that file defines the
-  Code-Anchored Context practice vocabulary.
-- Keep accepted current behavior in `reference/`.
-- Keep uncertain, ambiguous, future, or disputed behavior out of
-  `reference/`. Capture it in `context/baseline-clarifications.md` or in the
-  matching area guide's baseline discovery notes.
+  language.
+- Keep accepted, currently-true behavior in `reference/`.
+- Keep uncertain, ambiguous, future, or disputed behavior out of `reference/`.
+  Capture it in `reference/_authoring/baseline-clarifications.md`.
 - Prefer source-backed facts. Do not guess. Mark unknowns clearly.
 - Preserve user work and existing documentation. Extend existing area guides
   and reference pages rather than replacing them wholesale.
+- If the planning package is also installed and `context/project-profile.md`
+  exists, read it for repo-wide operating facts, but do not require it.
 
 ## Baseline Scope
 
@@ -68,27 +63,7 @@ Gather source-backed facts from:
 
 Use `rg` and source-native tooling before inventing commands.
 
-### 2) Populate `context/project-profile.md`
-
-Replace starter unknowns with source-backed facts. Keep the profile concise
-and useful for future agents.
-
-Cover:
-
-- repository shape and source roots
-- stack and runtime
-- install, local run, build, lint, typecheck, test, smoke, package, and
-  release commands
-- verification expectations and known gaps
-- delivery and release conventions
-- infrastructure and configuration
-- operations, observability, support, rollback, and repair
-- generated artifacts and their owning sources
-
-If a fact cannot be established from source, leave it as `Unknown` and name
-the files or folders that were inspected.
-
-### 3) Map Reference Areas
+### 2) Map Reference Areas
 
 Identify the product or operational areas that need baseline reference. For
 each area, create or update:
@@ -109,7 +84,7 @@ Record:
 - baseline discovery notes
 - area-specific terminology and cross-links
 
-### 4) Populate Domain Terminology
+### 3) Populate Domain Terminology
 
 Update `reference/_authoring/terminology.md` with canonical product and domain
 language discovered during the baseline pass.
@@ -122,10 +97,10 @@ Include:
 - wording guardrails that prevent false claims
 
 When terminology is ambiguous, do not force a definition. Add the ambiguity to
-`context/baseline-clarifications.md` and link to it from the relevant area
-guide when useful.
+`reference/_authoring/baseline-clarifications.md` and link to it from the
+relevant area guide when useful.
 
-### 5) Write Baseline Reference
+### 4) Write Baseline Reference
 
 For each selected area, create or update:
 
@@ -152,10 +127,10 @@ Write from behavior outward:
 Prefer broad, accurate coverage over exhaustive implementation detail. Link to
 source when useful, but do not make source links a substitute for explanation.
 
-### 6) Capture Clarifications
+### 5) Capture Clarifications
 
-Create or update `context/baseline-clarifications.md` when the baseline pass
-finds unresolved questions.
+Create or update `reference/_authoring/baseline-clarifications.md` when the
+baseline pass finds unresolved questions.
 
 Use sections such as:
 
@@ -184,7 +159,7 @@ Last reviewed: <date>
 Do not put unresolved questions into product-facing reference as if they were
 accepted behavior.
 
-### 7) Record The Baseline
+### 6) Record The Baseline
 
 Append or update one row in `reference/releases/index.md`.
 
@@ -199,21 +174,18 @@ baseline/2026-06-06
 The summary should say this was the first baseline documentation pass and list
 the refreshed areas.
 
-### 8) Validate And Summarize
+### 7) Validate And Summarize
 
 Before finishing:
 
 - run `git diff --check`
 - inspect `git diff --name-status`
-- run documentation validation commands named in `context/project-profile.md`,
-  if any
-- confirm the diff is documentation, context, reference, skills, agent
-  guidance, or comment-only source pointers
+- confirm the diff is documentation, reference, skills, agent guidance, or
+  comment-only source pointers
 
 Report:
 
 - baseline reference point
-- profile facts populated
 - reference areas and feature pages created or updated
 - terminology added or clarified
 - unresolved baseline clarifications

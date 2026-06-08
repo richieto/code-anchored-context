@@ -1,40 +1,21 @@
 {
-  "name": "code-anchored-context",
-  "version": "0.2.8",
-  "description": "Install repo-local agent skills, working context, release initiatives, and release-anchored reference scaffolding into an existing project.",
+  "name": "code-anchored-context-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Code-Anchored Context: durable planning context and release-anchored reference for coding agents, split into focused packages.",
   "license": "MIT",
   "type": "module",
-  "bin": {
-    "code-anchored-context": "bin/code-anchored-context.js"
-  },
-  "files": [
-    "AGENTS.md",
-    ".agents/",
-    "context/AGENTS.md",
-    "context/README.md",
-    "context/_templates/",
-    "context/backlog/",
-    "context/current.md",
-    "context/project-profile.md",
-    "context/programs/",
-    "context/releases/v0_1_0/README.md",
-    "context/releases/v0_1_0/backlog.md",
-    "context/releases/v0_1_0/initiatives/.gitkeep",
-    "context/terminology.md",
-    "reference/",
-    "bin/",
-    "README.md",
-    "LICENSE"
+  "workspaces": [
+    "packages/*"
   ],
   "scripts": {
-    "test": "node --test"
+    "test": "npm test --workspaces --if-present"
   },
   "engines": {
     "node": ">=18"
   },
   "keywords": [
     "agents",
-    "codex",
     "ai",
     "documentation",
     "working-context",

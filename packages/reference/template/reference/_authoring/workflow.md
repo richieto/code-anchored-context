@@ -34,10 +34,10 @@ There are two valid ways to introduce or maintain `reference/`.
 ### Baseline Reference
 
 Use this mode only when a human explicitly asks to document the current system
-as a starting point. This is common when adopting the template in an existing
+as a starting point. This is common when adopting reference in an existing
 project that has little or no reference material.
-After `code-anchored-context init`, agents should use
-`.agents/skills/project-baseline/SKILL.md` for this first adoption pass.
+For this first baseline pass, agents should use
+`.agents/skills/reference-baseline/SKILL.md`.
 
 When creating a baseline:
 
@@ -57,16 +57,18 @@ When creating a baseline:
 Baseline reference is a snapshot of the system as adopted; it is not a
 promise that every undocumented behavior is unimportant.
 
-This is different from `context/project-profile.md`, which captures the
-repo-wide operating profile: stack, commands, verification, delivery,
-infrastructure, observability, and generated-artifact facts.
+If the planning package is also installed, this is different from
+`context/project-profile.md`, which captures the repo-wide operating profile:
+stack, commands, verification, delivery, infrastructure, observability, and
+generated-artifact facts. Reference does not depend on that file.
 
 ### Release-Forward Reference
 
 Use this mode when the team chooses not to create a full baseline. In this
-mode, `reference/` may start sparse. Agents capture reference impact in
-initiative `release-doc-notes.md` during development, then update reference
-only at explicit release-refresh time.
+mode, `reference/` may start sparse. If the planning package is in use, agents
+capture reference impact in initiative `release-doc-notes.md` during
+development; either way, reference is updated only at explicit release-refresh
+time, working from the tag-to-tag diff.
 
 This is valid when a full baseline would be too expensive. The reference
 becomes complete incrementally around behavior the team changes and releases.
@@ -181,8 +183,9 @@ When invoked to refresh reference for a release:
 1. Work from the diff `<previous-release-tag>..HEAD`, scoped to one area at a
    time.
 2. Read the matching area guide in `reference/_authoring/areas/`.
-3. Read relevant initiative `release-doc-notes.md` files under
-   `context/releases/<release>/initiatives/`.
+3. If the planning package is in use, read relevant initiative
+   `release-doc-notes.md` files under `context/initiatives/`. This input is
+   optional; the diff is the source of truth.
 4. Update the area's `README.md` if the high-level picture changed.
 5. Update feature pages for behavior that changed.
 6. Ignore pure refactors, internal renames, test-only changes, formatting,
@@ -195,7 +198,8 @@ For release refreshes, start from release-owned context before falling back to
 source inspection:
 
 1. Previous release tag to current release diff.
-2. Relevant initiative `release-doc-notes.md` files.
+2. Relevant initiative `release-doc-notes.md` files, when the planning package
+   is in use.
 3. Matching area guide under `reference/_authoring/areas/`.
 4. Existing reference.
 5. Source code, tests, config, CI/CD, infrastructure, and generated artifacts

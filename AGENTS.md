@@ -1,67 +1,51 @@
-# Agent Guidance - PROJECT_NAME
+# Agent Guidance - Code-Anchored Context
 
-This file applies to the whole repo. Area-specific `AGENTS.md` files in
-subfolders layer on top of it. Read those too when working in a given area.
+This repository is an npm workspaces monorepo that publishes two packages under
+the Code-Anchored Context umbrella. Area-specific `AGENTS.md` files layer on top
+of this one; read those too when working in a given area.
 
-## Working Context
+## Repository Layout
 
-In-progress specs, plans, ADRs, backlog, implementation context, and
-release-documentation notes live under [`context/`](context/).
-Start with [`context/current.md`](context/current.md).
-Use [`context/project-profile.md`](context/project-profile.md) for
-repo-wide stack, command, testing, delivery, infrastructure, observability,
-and generated-artifact facts when it has been populated.
+- `packages/planning/` - the `@code-anchored-context/planning` package:
+  invocation-only planning skills plus the `context/` and `decisions/` scaffold
+  it installs into adopter repos.
+- `packages/reference/` - the `@code-anchored-context/reference` package: the
+  `reference/` scaffold plus the reference authoring and tag-diff skills.
+- `writing/` - shared narrative and presentation material. Not shipped in either
+  npm package.
+- `context/` and `decisions/` - this repo's own working bench and durable
+  decision log. The repo dogfoods the flat planning model.
 
-For first-time adoption after `init`, use the repo-wide skill at
-[`.agents/skills/project-baseline/SKILL.md`](.agents/skills/project-baseline/SKILL.md)
-to populate the project profile, domain terminology, baseline reference, and
-baseline clarification notes.
+Each package is self-contained: its installer lives in `bin/` and `lib/`, and
+everything it copies into an adopter repo lives under `template/`. When you
+change a package's installed behavior, change the files under that package's
+`template/`, not this repo's root `context/` or `decisions/`.
 
-For behavior-changing work, use the repo-wide skill at
-[`.agents/skills/code-anchored-context/SKILL.md`](.agents/skills/code-anchored-context/SKILL.md).
-Keep initiative knowledge centralized under `context/`; area
-`AGENTS.md` files should point there rather than copying active plans.
+## Working On This Repo
 
-For post-release cleanup after a release branch has merged or a release is
-accepted, use the repo-wide skill at
-[`.agents/skills/release-context-closeout/SKILL.md`](.agents/skills/release-context-closeout/SKILL.md).
+In-progress work for this repository lives under [`context/`](context/), which
+is a disposable working bench. Start at
+[`context/README.md`](context/README.md). Durable architecture and design
+decisions live in the append-only log under [`decisions/`](decisions/).
+
+The planning workflow this project ships is itself invocation-only. When you
+want to plan a non-trivial change to this repo, you may use the package skills
+at
+[`packages/planning/template/.agents/skills/plan-with-context/SKILL.md`](packages/planning/template/.agents/skills/plan-with-context/SKILL.md)
+and
+[`packages/planning/template/.agents/skills/grill-and-distribute/SKILL.md`](packages/planning/template/.agents/skills/grill-and-distribute/SKILL.md).
 
 ## Reference Authoring
 
-### When To Edit `reference/`
+This repository does not keep its own `reference/` tree; the reference scaffold
+is the payload of the reference package under
+`packages/reference/template/reference/`. Do not create a top-level `reference/`
+here. If you need to change what reference adopters receive, edit the package
+template and its skills.
 
-Do not edit `reference/` as a side effect of feature work, bug fixes,
-refactors, or other code changes. Reference material in this model is
-release-anchored:
-they describe the behavior of a specific release tag, not the partial state of
-a working branch.
+## Conventions
 
-Touch `reference/` only when:
-
-- A human explicitly asks you to refresh reference for a release, typically
-  after a release tag is cut and QA has signed off.
-- A human explicitly asks you to create or refresh baseline reference for
-  an existing project.
-- A human explicitly asks you to update a specific page.
-- A human asks you to fix a demonstrable error in an existing page, such as a
-  broken link or factual inaccuracy.
-
-If you are unsure whether the request is one of these, ask before editing.
-
-If a project has reference material that intentionally follows a different cadence,
-document that exception in the area's README and in
-`reference/_authoring/areas/`.
-
-### Where The Authoring Guidance Lives
-
-All reference workflow, per-area authoring guides, and domain terminology
-live under [`reference/_authoring/`](reference/_authoring/). Start
-with [`reference/_authoring/README.md`](reference/_authoring/README.md).
-
-If you are refreshing reference, the per-area guides in
-[`reference/_authoring/areas/`](reference/_authoring/areas/) tell you
-what matters and what to ignore for each area.
-
-`AGENTS.md` files stay lean. They are for coding conventions and agent
-restrictions, not detailed reference guidance. If you have reference rules to
-add, add them under `_authoring/`.
+- Node >= 18, ESM (`"type": "module"`), no build step.
+- Run tests with `npm test --workspaces`.
+- Keep `AGENTS.md` files lean: coding conventions and agent restrictions, not
+  detailed workflow. Workflow guidance belongs in the package skills.

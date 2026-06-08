@@ -1,6 +1,6 @@
 # Project Profile
 
-Project: Code-Anchored Context
+Project: PROJECT_NAME
 Baseline status: Not populated yet.
 Last reviewed: Not recorded.
 
