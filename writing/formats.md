@@ -1,9 +1,8 @@
-# Code-Anchored Context: Markdown For Work, HTML For People
+# Markdown For Work, HTML For People
 
-This is a short companion to
-[Code-Anchored Context: Why](code-anchored-context-why.md) and
-[Code-Anchored Context: The Structure](code-anchored-context-structure.md).
-It covers one narrow question: what format should the context live in?
+This is a short companion shared by both practice narratives in
+[`writing/`](README.md). It covers one narrow question: what format should the
+writing live in?
 
 I used to think about this as markdown *vs* HTML. Now I see it differently.
 They are not enemies. They serve different readers.
@@ -27,24 +26,25 @@ usually do not need the full spec. They need the story, the flow, the impact,
 and the current direction.
 
 You can see this in practice in
-[`code-anchored-context-story.html`](code-anchored-context-story.html): the same
-ideas as the markdown pieces, retold in plain language for a non-technical
-audience.
+[`code-anchored-context.html`](code-anchored-context.html): a lightweight
+overview of both practices for a non-technical audience.
 
 HTML is not only for outsiders, though. The same format also makes a good
-*scannable reference* for practitioners. The
-[`code-anchored-context.html`](code-anchored-context.html) practitioner brief
-renders the structure — the three kinds of truth, the flat initiative layout,
-the initiative files, and the decision log — as something you can scan at a
-glance rather than read top to bottom. Same format, two different jobs: one
-tells the story, the other maps the mechanics.
+*scannable reference* for practitioners:
+
+- [`durable-context/brief.html`](durable-context/brief.html) — working bench,
+  decision log, lifecycle.
+- [`code-anchored-docs/brief.html`](code-anchored-docs/brief.html) — tag-diff
+  workflow and boundary rules.
+
+Same format, different jobs: one tells the story, the others map the mechanics.
 
 ## The Point
 
 It is not markdown vs HTML. It is using the right format for the right
-audience — and keeping both anchored to the same underlying context instead of
+audience — and keeping both anchored to the same underlying ideas instead of
 letting them drift into separate stories.
 
-For the honest accounting of where this whole approach is not worth the cost,
-see the closing companion article,
-[Code-Anchored Context: Limitations](code-anchored-context-limitations.md).
+For where each practice is not worth the cost, see
+[Durable Context: Limitations](durable-context/limitations.md) and
+[Code-Anchored Docs: Limitations](code-anchored-docs/limitations.md).

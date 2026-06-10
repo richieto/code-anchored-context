@@ -1,8 +1,8 @@
-# Code-Anchored Context: The Structure
+# Durable Context: The Structure
 
 This is the companion to the
-[reasoning article](code-anchored-context-why.md). It covers how working
-context is laid out so both humans and agents can navigate it.
+[reasoning article](why.md). It covers how the working
+bench and decision log are laid out so both humans and agents can navigate them.
 
 ## Denormalize Navigation, Not Knowledge
 
@@ -15,24 +15,18 @@ keeps its own plans, cross-project work fragments.
 
 Local `AGENTS.md` files point agents toward the right place. But plans, specs,
 decisions, testing strategy, delivery notes, and infrastructure context live
-centrally, in the two roots described below.
+centrally under `context/` and `decisions/`.
 
-## Three Kinds Of Truth
+## The Layout
 
-There are three kinds of truth, and they live in three places:
+Durable Context installs two roots:
 
 ```text
-context/     What you are planning and building right now.
-             Disposable working bench; archive when done.
-decisions/   Why the system is the way it is.
-             Durable, append-only decision log.
-reference/   What the system does as of a release tag.
-             Refreshed per release.
+context/     Disposable working bench; archive when done.
+decisions/   Durable, append-only decision log.
 ```
 
-Each root has its own lifetime. `context/` is allowed to drift and be thrown
-away. `decisions/` is permanent. `reference/` tracks released behavior. The
-working bench is laid out flat:
+The working bench is flat — no release folders, no programs:
 
 ```text
 context/
@@ -76,7 +70,7 @@ infrastructure.md    Environments, IaC, networking, identity, storage, secrets.
 operations.md        Runtime/support: observability, failure modes, rollback.
 backlog.md           Trackable work items and progress.
 decisions/           Local ADR drafts; accepted ones promote to ../../decisions/.
-release-doc-notes.md What should become reference later.
+release-doc-notes.md Optional notes for whoever maintains shipped-behavior docs.
 ```
 
 Not every initiative needs every file. The point is to give stable knowledge a
@@ -125,34 +119,19 @@ flowchart LR
   Distribute -->|"promote accepted decisions"| Decisions
 ```
 
-## Two Packages, One Umbrella
-
-This layout ships as two small, independent packages under one umbrella, in an
-npm workspaces monorepo:
-
-```text
-packages/planning/    @code-anchored-context/planning  (context/ + decisions/)
-packages/reference/   @code-anchored-context/reference (reference/)
-writing/              shared narrative (not published)
-```
-
-Adopt either or both — they share one idea but have no hard dependency on each
-other:
+## Install
 
 ```bash
 npx @code-anchored-context/planning init --project-name "My App"
-npx @code-anchored-context/reference init --project-name "My App"
 ```
 
-The planning package installs the disposable bench, the durable decision log,
-and the invocation-only planning skills (`plan-with-context`,
-`grill-and-distribute`). The reference package installs the `reference/` tree
-and its own skills (`reference-from-tags`, `reference-baseline`), and works
-whether or not anyone uses planning.
+This adds `context/`, `decisions/`, and the invocation-only planning skills
+(`plan-with-context`, `grill-and-distribute`). Ask for them by name when you
+want the workflow — they do not run automatically.
 
-With the layout in place, the next question is how the stable half stays true.
-See the companion article,
-[Code-Anchored Context: Keeping Reference In Sync](code-anchored-context-reference-sync.md),
-and then
-[Code-Anchored Context: Markdown For Work, HTML For People](code-anchored-context-formats.md)
-for what format the context should live in.
+For shipped-behavior documentation kept accurate from release tags, see the
+sibling practice:
+[Code-Anchored Docs](../code-anchored-docs/why.md).
+
+For what format the context should live in, see the shared companion
+[Markdown For Work, HTML For People](../formats.md).

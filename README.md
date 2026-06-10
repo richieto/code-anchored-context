@@ -76,19 +76,24 @@ Reference (`@code-anchored-context/reference`):
 
 ## Want To Understand The Idea? Start Here
 
-The reasoning behind the practice lives in [`writing/`](writing/), in reading
-order:
+The reasoning lives in [`writing/`](writing/) as two independent narratives:
 
-1. [The Rationale](writing/code-anchored-context-rationale.md) - the painpoints
-   that motivate the approach.
-2. [Why](writing/code-anchored-context-why.md) - the principle and the
-   reference-vs-working-context split.
-3. [The Structure](writing/code-anchored-context-structure.md) - the folder
-   layout.
-4. [Keeping Reference In Sync](writing/code-anchored-context-reference-sync.md) -
-   the tag-diff refresh workflow.
-5. [Limitations](writing/code-anchored-context-limitations.md) - when not to use
-   it.
+**Durable Context** (planning — `context/` and `decisions/`):
+
+1. [The Rationale](writing/durable-context/rationale.md) - why planning context
+   must live in the repo.
+2. [Why](writing/durable-context/why.md) - the principle.
+3. [The Structure](writing/durable-context/structure.md) - flat initiatives and
+   the decision log.
+4. [Limitations](writing/durable-context/limitations.md) - when not to use it.
+
+**Code-Anchored Docs** (reference — shipped-behavior docs from release tags):
+
+1. [Why](writing/code-anchored-docs/why.md) - docs drift and the
+   release-anchored model.
+2. [Keeping Docs In Sync](writing/code-anchored-docs/keeping-in-sync.md) - the
+   tag-diff workflow.
+3. [Limitations](writing/code-anchored-docs/limitations.md) - when not to use it.
 
 ## Repository Layout
 

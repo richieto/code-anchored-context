@@ -1,78 +1,62 @@
-# Code-Anchored Context: Giving Coding Agents The Context Around The Code
+# Durable Context: Why
 
 The companion article,
-[Code-Anchored Context: The Rationale](code-anchored-context-rationale.md), laid
+[Durable Context: The Rationale](rationale.md), laid
 out the painpoints — reasoning lost to closed sessions, plans that cannot be
-shared, documentation that drifts. This article is the principle that resolves
-them.
+shared, context that never survives a tool change. This article is the
+principle that resolves them.
 
 Coding agents are good at reading repositories, editing files, and following
 instructions. But in large codebases, code is not the whole story.
 
 The hard part is not whether an agent can change a file. It is whether it
-understands the intent behind the change, the current release scope, the
-decisions already made, the work deliberately deferred, how the change should
-be verified, how it ships, and what infrastructure or operational risks
-surround it.
+understands the intent behind the change, the decisions already made, the work
+deliberately deferred, how the change should be verified, how it ships, and what
+infrastructure or operational risks surround it.
 
 That context usually exists — in chats, tickets, pull request comments,
 planning notes, and people's heads — but agents need it in a structured,
 discoverable form.
 
-## Three Kinds Of Truth
+## Two Kinds Of Truth On This Side
 
-This is why I separate the truth into three kinds, by lifetime:
+**Durable Context** owns the working bench and the decision log — two kinds of
+truth with different lifetimes:
 
 ```text
 context/     What we are planning, building, deciding, testing,
              shipping, hosting, deferring, and learning right now.
+             Disposable working bench; archive when done.
 decisions/   Why the system is the way it is — durable, append-only.
-reference/   What shipped, as of a known release tag.
 ```
 
-Reference stays stable and release-accurate: it describes a known release, not
-an unfinished branch. Working context is allowed to evolve — it is where humans
-and agents work through ambiguity. The decision log sits between them: it is
-not disposable like the bench, and it is not release behavior like reference —
-it is the durable record of *why* the choices were made.
+Working context is allowed to evolve — it is where humans and agents work
+through ambiguity. The decision log is not disposable: it is the durable record
+of *why* the choices were made.
 
 Be aware that this means `context/` *drifts by design*. It is working-time
 scaffolding, not the source of truth. So the durable conclusions are extracted
 before the bench is archived: accepted decisions are promoted into `decisions/`,
-and any future reference impact is captured in `release-doc-notes.md` so it can
-feed `reference/` at release time. The bench is then free to move on. For how
-the reference half stays consistent, see the companion article,
-[Code-Anchored Context: Keeping Reference In Sync](code-anchored-context-reference-sync.md).
+and any future product-doc impact can be noted in `release-doc-notes.md` for
+whoever maintains shipped-behavior docs later. The bench is then free to move on.
 
-## Why `reference/`, Not `docs/`
-
-`reference/` is probably a lot of what already lives in your `docs/` folder
-today. I did not simply call it `docs/` because this has to drop into existing
-projects, and I cannot know what your `docs/` already holds. Overloading a
-folder that may already mean something else invites collisions and silent
-reinterpretation. So `reference/` names one specific thing — released,
-behavior-accurate truth for a known release — and leaves `docs/` for everything
-else a repository legitimately needs that is *not* specific to the artifacts
-produced: contribution guides, onboarding, runbooks, and the like.
-
-That said, the name is a default, not a rule. If `docs/` fits your repository
-better, rename it.
-
-> The boundary that matters is reference vs working context, not the label on
-> the folder.
+Shipped-behavior documentation is a separate practice —
+[Code-Anchored Docs](../code-anchored-docs/why.md) — with its own lifetime and
+workflow. Durable Context does not depend on it.
 
 ## The Principle
 
-I think of this as **Code-Anchored Context**. Not a methodology — a rule of
-thumb:
+I think of this as **Durable Context**. Not a methodology — a rule of thumb:
 
-> Keep truth as close to code as possible, and keep the surrounding context
-> structured enough that both humans and agents can find it.
+> Keep planning context in the repository, structured enough that both humans
+> and agents can find it — and distill what must survive into a durable decision
+> log before the working bench is archived.
 
 It is opinionated on purpose: prefer repository-local context, explicit
 lifetimes, and navigable structure over scattered notes that only make sense
 to the people who were in the room. Repository-local context scales beyond one
-person.
+person. What you plan durably becomes the agent's working context when
+implementation starts.
 
 ## Who This Is For
 
@@ -88,7 +72,7 @@ go. When planning happens in one session, review in another, and implementation
 in a third that refers back to the settled plan, each session carries only what
 it needs. For the cases where this model is the wrong fit, see the companion
 article,
-[Code-Anchored Context: Limitations](code-anchored-context-limitations.md).
+[Durable Context: Limitations](limitations.md).
 
 ## Where It Shines
 
@@ -121,50 +105,44 @@ flowchart LR
   Code["Codebase<br/>What exists"]
   Dev["context/<br/>What is being planned, built, decided, tested, shipped, deferred"]
   Decisions["decisions/<br/>Why the system is the way it is"]
-  Reference["reference/<br/>What shipped in a known release"]
   Agents["Agents and humans"]
 
   Agents --> Code
   Agents --> Dev
   Dev -->|"promote accepted decisions"| Decisions
-  Dev -->|"release-doc-notes.md captures future reference impact"| Reference
   Decisions -->|"durable rationale"| Agents
-  Reference -->|"stable release truth"| Agents
 ```
 
-## A Deliberate Bundle
+## A Deliberate Composition
 
 None of the individual pieces here are novel, and that is intentional.
-Architecture decision records, docs-as-code, monorepo context conventions, and
-spec-driven development each already solve part of the problem. Code-Anchored
-Context does not try to replace them — it composes them around one organizing
-idea: a clear split between release-anchored `reference/` truth and evolving
-`context/` work, made navigable for both humans and agents.
+Architecture decision records, monorepo context conventions, and spec-driven
+development each already solve part of the problem. Durable Context does not
+try to replace them — it composes them around one organizing idea: a disposable
+working bench and a durable decision log, made navigable for both humans and
+agents.
 
-The contribution is the bundle and the lifetimes, not a new primitive. If you
-already practice ADRs and docs-as-code, you are most of the way here; this gives
-those habits a shared home and an explicit boundary between what shipped and
-what is still being figured out.
+The contribution is the lifetimes, not a new primitive. If you already practice
+ADRs, you are most of the way here; this gives those habits a shared home and
+an explicit path from messy planning to settled truth.
 
-That bundle now ships as two small, independent packages — one for planning
-(`context/` plus the `decisions/` log) and one for release-anchored
-`reference/`. They share the one organizing idea but have no hard dependency on
-each other, so you can adopt either or both without taking on the whole
-practice at once.
+The practice ships as `@code-anchored-context/planning` — invocation-only skills
+(`plan-with-context`, `grill-and-distribute`) plus the `context/` and
+`decisions/` scaffold. It has no hard dependency on
+[Code-Anchored Docs](../code-anchored-docs/why.md).
 
 ## Why It Matters
 
-Code-Anchored Context is context continuity. It helps agents and humans answer:
+Durable Context is context continuity. It helps agents and humans answer:
 
 - What is active now, and what belongs to a future phase?
 - What was cut from scope, and why was a decision made?
 - How should this be tested, and what gates must pass before release?
 - How will it ship, and what infrastructure does it depend on?
-- What should become reference later?
 - What reasoning needs to survive a change of IDE, agent, or session?
 
 Code tells an agent *what exists*. Working context tells it *why* it
 exists, where it is going, what has been decided, and what was left for later.
 
 For the concrete folder layout, see the companion article,
-[Code-Anchored Context: The Structure](code-anchored-context-structure.md).
+[Durable Context: The Structure](structure.md).

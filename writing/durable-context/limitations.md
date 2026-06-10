@@ -1,9 +1,9 @@
-# Code-Anchored Context: Limitations, Anti-Patterns, and When Not To Use It
+# Durable Context: Limitations, Anti-Patterns, and When Not To Use It
 
-Every other article in this series makes the case *for* Code-Anchored Context.
-This one is the honest accounting of where it costs more than it returns, where
-it breaks, and how to tell. It is not one-size-fits-all, and pretending
-otherwise would undercut the parts that genuinely work.
+Every other article in the Durable Context series makes the case *for* the
+practice. This one is the honest accounting of where it costs more than it
+returns, where it breaks, and how to tell. It is not one-size-fits-all, and
+pretending otherwise would undercut the parts that genuinely work.
 
 ## It Is Built For Harness Engineering
 
@@ -27,9 +27,6 @@ on top of it.
   context is stale by Friday. Stabilize first.
 - **Teams without documentation discipline.** Half-filled templates are worse
   than empty folders. If no one will maintain it, do not adopt it.
-- **Continuous or non-release workflows.** The model is release-anchored. If you
-  do not have a release rhythm to anchor reference to, the strongest guarantee
-  in the system does not apply cleanly.
 
 Use it for large, long-lived initiatives where the reasoning is expensive and
 the system has to survive many hands. It is opt-in: small fixes still just ship,
@@ -38,16 +35,12 @@ and nothing forces a team to wrap trivial work in process.
 ## Anti-Patterns
 
 - **`plan.md` as the only home of truth.** It is allowed to be messy, but if
-  settled conclusions never graduate into `spec.md`, `architecture.md`, ADRs,
-  or `reference/`, the knowledge dies with the branch.
+  settled conclusions never graduate into `spec.md`, `architecture.md`, or the
+  decision log, the knowledge dies with the branch.
 - **Filling every template file as ceremony.** Not every initiative needs every
   file. An initiative padded with empty `infrastructure.md` and `operations.md`
   stubs trains everyone to ignore them. Tune the template down to what the work
   actually needs.
-- **Never folding `context/` back into `reference/`.** Working context that is
-  never harvested at release time defeats the entire reference vs working
-  context split. Drift is fine in `context/`; it is not fine to let the durable
-  truth never get written.
 - **Letting `context/` be the only home for decisions.** The bench is
   disposable; it gets archived. If accepted architecture and design decisions
   are never promoted into the durable `decisions/` log, the rationale dies with
@@ -73,13 +66,13 @@ and nothing forces a team to wrap trivial work in process.
 
 ## The Honest Framing
 
-Code-Anchored Context does not claim to remove documentation discipline — it
-relocates it to where the source of truth lives and gives it a release-anchored
-refresh. The trade is real: more structure, more reviewing, more up-front
-agreement on when releases ship. For large systems that have to outlive any one
-session, tool, or engineer, that trade is worth making. For everything else, it
-is honestly overkill — and that is fine.
+Durable Context does not claim to remove documentation discipline — it
+relocates planning and decision rationale to where the source of truth lives.
+The trade is real: more structure, more reviewing, more up-front agreement on
+what gets promoted before the bench is archived. For large systems that have to
+outlive any one session, tool, or engineer, that trade is worth making. For
+everything else, it is honestly overkill — and that is fine.
 
-For where this approach sits relative to the ideas it borrows from, see the
-"A Deliberate Bundle" section of
-[Code-Anchored Context: Why](code-anchored-context-why.md).
+For where this practice sits relative to the ideas it borrows from, see the
+"A Deliberate Composition" section of
+[Durable Context: Why](why.md).

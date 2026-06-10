@@ -1,4 +1,4 @@
-# Code-Anchored Context: The Rationale
+# Durable Context: The Rationale
 
 Before there was a principle, there was friction. This article is about the
 painpoints I kept hitting with coding agents — the specific, recurring losses
@@ -40,7 +40,7 @@ There is a compounding effect here: the more "code-first" your repository is,
 the better your results, because the agent inherits the context *around* the
 artifacts, not just the artifacts themselves. That argument has its own home in
 the "Where It Shines" section of
-[Code-Anchored Context: Why](code-anchored-context-why.md). And do not let
+[Durable Context: Why](why.md). And do not let
 perfect be the enemy of good — if all you have is IaC and the code itself, that
 is already very helpful. Just plan to grow into more over time.
 
@@ -48,34 +48,21 @@ If you want to stay lean on a small project, start with something like
 OpenSpec. Once you get complex enough, consider this approach instead. And even
 then it is opt-in: it earns its keep on large, long-lived initiatives, while
 small fixes still just ship without ceremony. Nobody has to wrap a one-line
-change in process. It is also opt-in at the level of the practice itself — the
-planning side and the release-anchored reference side ship as two independent
-pieces, so you can take only the one you need instead of swallowing a single
-heavy bundle.
+change in process.
 
 > The richer the repository, the more context an agent inherits for free.
 
-## Documentation Tools Depend On Configuration
+## Documentation That Lives Apart From The Repo
 
-You can connect coding agents to your documentation tools today and instruct
-them to "update the documentation." The problem is the same as plan mode. Every
-team member has to follow the practice, and it only works through the specific
-coding agent connected to that specific tool on that specific machine. You are
-constrained to that configuration. Want to try a new coding agent? Configure
-everything again.
+You can connect coding agents to external documentation tools today and instruct
+them to "update the documentation." The problem is the same as plan mode: the
+practice depends on a specific agent, a specific tool, and a specific machine.
+That is a different problem — keeping shipped-behavior docs accurate from the
+code — and it has its own practice:
+[Code-Anchored Docs: Why](../code-anchored-docs/why.md).
 
-If documentation instead lives in the repository, it ships with the feature at
-the same time. That keeps it accurate, and it comes with everything the repo
-already gives you: it can reference exact files and lines, it gets git tracking
-by default, and you get auditing for free.
-
-There is a second, quieter payoff. The reasoning an agent produces while it
-works is the best architecture decision record you will never otherwise get —
-prose nobody on the team wanted to sit down and write. Captured in the
-repository, it becomes the raw material for keeping released reference accurate
-later, instead of evaporating when the session closes.
-
-> Documentation that ships with the change cannot drift away from it.
+Durable Context is about the reasoning *around* the change while you are still
+building it, not about refreshing product docs after a release.
 
 ## The Reasoning Is Already In Language
 
@@ -96,8 +83,8 @@ the agent should reach the same context and the same answer.
 As long as you give your agents the right context, they have no trouble
 navigating the repository tree to the right file and the right lines —
 regardless of whether you have four or five workspaces in it, or which one you
-happened to open. That is why I keep context and reference documentation at the
-root: it is discoverable from anywhere. When I do need debugging help or
+happened to open. That is why I keep the working bench and the decision log at
+the repo root: they are discoverable from anywhere. When I do need debugging help or
 workspace-specific capabilities, I just open another window dedicated to that.
 
 > Optimize the repository for the agent's context, not the editor's layout.
@@ -123,5 +110,5 @@ reasoning live inside one session, one tool, or one machine. There is a single
 idea underneath all of it — and it has a name.
 
 That is the subject of the next article,
-[Code-Anchored Context: Why](code-anchored-context-why.md), where the principle
+[Durable Context: Why](why.md), where the principle
 and the model that resolve this friction are laid out in full.

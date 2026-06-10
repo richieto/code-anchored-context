@@ -1,43 +1,54 @@
 # writing/
 
-This folder holds companion writing and presentation material about
-Code-Anchored Context.
+Companion writing and presentation material. Not part of either installable
+package.
 
-These files are useful for explaining the practice, but they are not part of
-either installable package. Keep the disposable working bench under `context/`,
-the durable decision log under `decisions/`, release-anchored reference under
-`reference/`, and narrative drafts here.
+Two independently-branded practices live here. They share one principle — keep
+truth anchored in the repository, close to the code — but solve different
+problems and ship as different packages.
 
-## Reading Order
+## Shared
 
-[When Spec-Driven Design Becomes Interface-Driven Design](ssd-to-idd.md) is the
-precursor critique that motivates the series and introduces the idea of durable
-context.
+- [When Spec-Driven Design Becomes Interface-Driven Design](ssd-to-idd.md) —
+  precursor critique; introduces durable context.
+- [Markdown For Work, HTML For People](formats.md) — what format the writing
+  should live in.
+- [Overview (HTML)](code-anchored-context.html) — lightweight presentation of
+  both practices for stakeholders.
 
-The core series is meant to be read (and released) in this order:
+## Durable Context
 
-1. [The Rationale](code-anchored-context-rationale.md) — the painpoints that
-   motivate the approach.
-2. [Why](code-anchored-context-why.md) — the principle, the three kinds of truth
-   (working context, durable decisions, released reference), and the two
-   independent packages that ship them.
-3. [The Structure](code-anchored-context-structure.md) — the concrete folder
-   layout.
-4. [Keeping Reference In Sync](code-anchored-context-reference-sync.md) — how
-   release-anchored reference stays true via the git-tag diff workflow.
-5. [Markdown For Work, HTML For People](code-anchored-context-formats.md) — what
-   format the context should live in.
-6. [Limitations](code-anchored-context-limitations.md) — when not to use it,
-   the anti-patterns, and the pitfalls to watch.
+Own the working bench and the decision log in the repo. What you plan durably
+becomes the agent's working context when implementation starts.
 
-## HTML Pages
+Package: `@code-anchored-context/planning` · installs `context/` and
+`decisions/`.
 
-Two HTML artifacts present the same model for different audiences:
+Reading order:
 
-- [The Story](code-anchored-context-story.html) — a plain-language overview for
-  stakeholders, customers, and management who will not read the repo.
-- [The Practitioner Brief](code-anchored-context.html) — a scannable reference
-  of the three kinds of truth, the flat initiative layout, the initiative
-  files, and the decision log for people doing the work.
+1. [The Rationale](durable-context/rationale.md) — why planning context must
+   live in the repo.
+2. [Why](durable-context/why.md) — the principle and the two lifetimes on this
+   side.
+3. [The Structure](durable-context/structure.md) — flat initiatives and the
+   decision log.
+4. [Limitations](durable-context/limitations.md) — when not to use it.
 
-Both npm packages intentionally exclude this folder.
+HTML: [Practitioner Brief](durable-context/brief.html)
+
+## Code-Anchored Docs
+
+Keep shipped-behavior documentation accurate from release tags. Refreshed from
+the diff between tags once per release. Works with zero planning adoption.
+
+Package: `@code-anchored-context/reference` · installs `reference/` by default
+(`docs/reference/` is a natural alternative).
+
+Reading order:
+
+1. [Why](code-anchored-docs/why.md) — docs drift and the release-anchored model.
+2. [Keeping Docs In Sync](code-anchored-docs/keeping-in-sync.md) — the tag-diff
+   workflow.
+3. [Limitations](code-anchored-docs/limitations.md) — when not to use it.
+
+HTML: [Practitioner Brief](code-anchored-docs/brief.html)

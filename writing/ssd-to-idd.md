@@ -56,14 +56,19 @@ The better question is:
 
 For me, the missing layer is **durable context**. Not more documentation for the sake of documentation, but context that helps both humans and AI understand the system over time: the architecture, a durable log of the decisions and why they were made, what is changing now, and what was deliberately left for later.
 
-That is what I have been working on as **Code-Anchored Context** — not a replacement for specs, but something built around them. If specs tell AI what to do next, durable context helps AI understand what already exists.
+That is what I have been working on as **Durable Context** — not a replacement
+for specs, but something built around them. If specs tell AI what to do next,
+durable context helps AI understand what already exists while you are still
+building. A sibling practice, **Code-Anchored Docs**, handles shipped-behavior
+documentation kept accurate from release tags.
 
-I wrote up the idea, and how I structure it, as a short series — best read in
-this order:
+I wrote up both practices in [`writing/`](README.md). Start with Durable
+Context:
 
-- [Code-Anchored Context: The Rationale](code-anchored-context-rationale.md) — the painpoints.
-- [Code-Anchored Context: Why](code-anchored-context-why.md) — the principle.
-- [Code-Anchored Context: The Structure](code-anchored-context-structure.md) — the layout.
-- [Code-Anchored Context: Keeping Reference In Sync](code-anchored-context-reference-sync.md) — keeping released reference true.
-- [Code-Anchored Context: Markdown For Work, HTML For People](code-anchored-context-formats.md) — the format.
-- [Code-Anchored Context: Limitations](code-anchored-context-limitations.md) — when not to use it.
+- [Durable Context: The Rationale](durable-context/rationale.md) — the painpoints.
+- [Durable Context: Why](durable-context/why.md) — the principle.
+- [Durable Context: The Structure](durable-context/structure.md) — the layout.
+- [Durable Context: Limitations](durable-context/limitations.md) — when not to use it.
+
+For shipped-behavior docs, see
+[Code-Anchored Docs: Why](code-anchored-docs/why.md).
